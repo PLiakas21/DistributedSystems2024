@@ -1,9 +1,11 @@
 package gr.hua.dit.ds.DistributedSystems.entities;
 
-import java.util.List;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
+@Table(name="users")
 public class User {
 
     @Id

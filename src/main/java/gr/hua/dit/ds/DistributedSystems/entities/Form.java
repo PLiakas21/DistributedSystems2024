@@ -12,7 +12,7 @@ public class Form {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(nullable = false)
+    @JoinColumn(name="users_id", nullable = false)
     private User user;
 
     @Column(nullable = false)
