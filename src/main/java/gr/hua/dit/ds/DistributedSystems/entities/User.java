@@ -1,14 +1,37 @@
 package gr.hua.dit.ds.DistributedSystems.entities;
 
+import java.util.List;
+import jakarta.persistence.*;
+
+@Entity
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
     private int id;
+
+    @Column(nullable = false)
     private String username;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private String surname;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String phone;
+
+    @OneToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH})
+    private List<Form> formList;
 
     public User(int id, String username, String name, String surname, String password, String email, String phone) {
         this.id = id;
@@ -19,6 +42,8 @@ public class User {
         this.email = email;
         this.phone = phone;
     }
+
+    public User() {}
 
     public int getId() {
         return id;
