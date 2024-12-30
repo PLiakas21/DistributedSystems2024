@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Property Forms</title>
+</head>
+<body>
+<h1>Property Forms</h1>
+<a th:href="@{'/property-form/create'}">Create New Property Form</a>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Date</th>
+        <th>Address</th>
+        <th>Property Address</th>
+        <th>Rent Price</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="form : ${propertyForms}">
+        <td th:text="${form.id}"></td>
+        <td th:text="${form.user.username}"></td>
+        <td th:text="${form.date}"></td>
+        <td th:text="${form.address}"></td>
+        <td th:text="${form.propertyAddress}"></td>
+        <td th:text="${form.rentPrice}"></td>
+        <td>
+            <a th:href="@{'/property-form/edit/' + ${form.id}}">Edit</a>
+            <a th:href="@{'/property-form/delete/' + ${form.id}}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
