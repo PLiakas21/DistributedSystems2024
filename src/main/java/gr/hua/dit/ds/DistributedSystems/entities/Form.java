@@ -8,7 +8,7 @@ public class Form {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private int id;
+    private Integer id;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
@@ -24,7 +24,7 @@ public class Form {
     @Column(nullable = false)
     private boolean status;
 
-    public Form(int id, User user, String date, String address) {
+    public Form(Integer id, User user, String date, String address) {
         this.id = id;
         this.user = user;
         this.date = date;
@@ -34,11 +34,11 @@ public class Form {
 
     public Form() {}
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Rental Forms</title>
+</head>
+<body>
+<h1>Rental Forms</h1>
+<a th:href="@{'/rental-form/create'}">Create New Rental Form</a>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Date</th>
+        <th>Address</th>
+        <th>Rent Price</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="form : ${rentalForms}">
+        <td th:text="${form.id}"></td>
+        <td th:text="${form.user.username}"></td>
+        <td th:text="${form.date}"></td>
+        <td th:text="${form.address}"></td>
+        <td th:text="${form.rentPrice}"></td>
+        <td>
+            <a th:href="@{'/rental-form/edit/' + ${form.id}}">Edit</a>
+            <a th:href="@{'/rental-form/delete/' + ${form.id}}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
