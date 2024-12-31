@@ -11,7 +11,7 @@ public class PropertyForm extends Form {
     @Column(nullable = false)
     private double rentPrice;
 
-    public PropertyForm(int id, User user, String date, String address, String propertyAddress, double rentPrice) {
+    public PropertyForm(Integer id, User user, String date, String address, String propertyAddress, double rentPrice) {
         super(id, user, date, address);
         this.propertyAddress = propertyAddress;
         this.rentPrice = rentPrice;

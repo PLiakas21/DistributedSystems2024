@@ -8,7 +8,7 @@ public class RentalForm extends Form {
     @Column(nullable = false)
     private double rentPrice;
 
-    public RentalForm(int id, User user, String date, String address, double rentPrice) {
+    public RentalForm(Integer id, User user, String date, String address, double rentPrice) {
         super(id, user, date, address);
         this.rentPrice = rentPrice;
     }

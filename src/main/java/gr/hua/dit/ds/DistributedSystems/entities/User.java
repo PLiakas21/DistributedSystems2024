@@ -11,7 +11,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false)
     private String username;
@@ -35,7 +35,7 @@ public class User {
             CascadeType.DETACH, CascadeType.REFRESH})
     private List<Form> formList;
 
-    public User(int id, String username, String name, String surname, String password, String email, String phone) {
+    public User(Integer id, String username, String name, String surname, String password, String email, String phone) {
         this.id = id;
         this.username = username;
         this.name = name;
@@ -47,11 +47,11 @@ public class User {
 
     public User() {}
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
