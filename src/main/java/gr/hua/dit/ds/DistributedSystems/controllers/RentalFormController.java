@@ -1,8 +1,6 @@
 package gr.hua.dit.ds.DistributedSystems.controllers;
 
 import gr.hua.dit.ds.DistributedSystems.entities.RentalForm;
-import gr.hua.dit.ds.DistributedSystems.repositories.RentalFormRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import gr.hua.dit.ds.DistributedSystems.service.RentalFormService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
