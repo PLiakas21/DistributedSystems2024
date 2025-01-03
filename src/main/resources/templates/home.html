@@ -1,10 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <title>Home Page</title>
+    <style>
+        button {
+            padding: 10px;
+            margin-left: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        ul {
+            list-style-type: none;
+            padding:0;
+        }
+        li {
+            margin: 10px;
+        }
+        .entity-style p {
+            margin:0;
+            font-size: 20px;
+        }
+        .entity-style {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 
+</head>
+<body style="text-align: center;">
+<h1> Property rental management system</h1>
+<p> Manage Forms</p>
+
+<ul>
+    <li class="entity-style">
+        <p> Manage Property Forms</p>
+        <form th:action="@{'/property-form/list'}" method="get">
+            <button type="submit">Manage</button>
+        </form>
+    </li>
+
+    <li class="entity-style">
+        <p> Manage Rental Forms</p>
+        <form th:action="@{'/rental-form/list'}" method="get">
+            <button type="submit">Manage</button>
+        </form>
+    </li>
+
+    <li class="entity-style">
+        <p> Manage Users</p>
+        <form th:action="@{'/users'}" method="get">
+            <button type="submit">Manage</button>
+        </form>
+    </li>
+</ul>
 </body>
 </html>
