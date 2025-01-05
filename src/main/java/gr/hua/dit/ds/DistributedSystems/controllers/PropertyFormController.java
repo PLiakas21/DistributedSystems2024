@@ -1,15 +1,10 @@
 package gr.hua.dit.ds.DistributedSystems.controllers;
 
 import gr.hua.dit.ds.DistributedSystems.entities.PropertyForm;
-import gr.hua.dit.ds.DistributedSystems.repositories.PropertyFormRepository;
 import gr.hua.dit.ds.DistributedSystems.service.PropertyFormService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.service.annotation.GetExchange;
-
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/property-form")
