@@ -1,6 +1,7 @@
 package gr.hua.dit.ds.DistributedSystems.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Form {
@@ -10,8 +11,7 @@ public class Form {
     @Column(unique = true, nullable = false)
     private Integer id;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name="users_id", nullable = false)
     private User user;
 
@@ -19,6 +19,7 @@ public class Form {
     private String date;
 
     @Column(nullable = false)
+    @NotBlank
     private String address;
 
     @Column(nullable = false)

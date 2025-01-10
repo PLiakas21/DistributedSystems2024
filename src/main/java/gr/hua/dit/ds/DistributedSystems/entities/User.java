@@ -1,11 +1,22 @@
 package gr.hua.dit.ds.DistributedSystems.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.List;
 
 @Entity
-@Table(name="users")
+@Table(name="users",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "username"),
+                @UniqueConstraint(columnNames = "email"),
+                @UniqueConstraint(columnNames = "phone")
+            })
 public class User {
 
     @Id
@@ -14,29 +25,44 @@ public class User {
     private Integer id;
 
     @Column(nullable = false)
+    @NotBlank
+    @Size(min = 3, max = 20)
     private String username;
 
     @Column(nullable = false)
+    @NotBlank
     private String name;
 
     @Column(nullable = false)
+    @NotBlank
     private String surname;
 
     @Column(nullable = false)
+    @NotBlank
+    @Size(min = 3, max = 20)
     private String password;
 
     @Column(nullable = false)
+    @NotBlank
+    @Email
     private String email;
 
     @Column(nullable = false)
+    @NotBlank
+    @Size(min=10,max=10)
+    @Pattern(regexp="(^$|[0-9]{10})", message = "Phone number must contain only digits")
     private String phone;
 
-    @OneToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH})
+    @OneToMany(cascade= {CascadeType.ALL})
     private List<Form> formList;
 
-    public User(Integer id, String username, String name, String surname, String password, String email, String phone) {
-        this.id = id;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable( name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
+    public User(String username, String name, String surname, String password, String email, String phone) {
         this.username = username;
         this.name = name;
         this.surname = surname;
@@ -101,5 +127,13 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
