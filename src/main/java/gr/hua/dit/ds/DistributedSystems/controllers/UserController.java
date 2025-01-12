@@ -19,24 +19,25 @@ public class UserController {
     public String redirectToList() {
         return "redirect:/user/list";
     }
+
     // List the Users
     @GetMapping("/list")
     public String listUsers(Model model) {
         model.addAttribute("users", userService.getUsers());
-        return "user";
+        return "user/user";
     }
 
     @GetMapping("/get/{id}")
     public String getUser(@ModelAttribute Integer id, Model model) {
         model.addAttribute("user", userService.getUser(id));
-        return "user";
+        return "user/user";
     }
 
     // Create a new User
     @GetMapping("/create")
     public String createUser(Model model) {
         model.addAttribute("user", new User());
-        return "user";
+        return "user/user";
     }
 
     // Save User to the database
@@ -44,7 +45,7 @@ public class UserController {
     public String saveUser(@ModelAttribute User user, Model model) {
         userService.saveUser(user);
         model.addAttribute("users", userService.getUsers());
-        return "redirect:/user/list";
+        return "redirect:user/user/list";
     }
 
     // Delete a User
@@ -52,6 +53,6 @@ public class UserController {
     public String deleteUser(@PathVariable Integer id, Model model) {
         userService.deleteUser(id);
         model.addAttribute("users", userService.getUsers());
-        return "redirect:/user/list";
+        return "redirect:user/user/list";
     }
 }
