@@ -1,10 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+       xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="~{page_layout/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Home Page</title>
+     <style>
+         body {
+             background-color: #23395d;
+             color: #f8f9fa;
+         }
+         h1 {
+             color: white;
+             font-size: 2.5rem;
+         }
+         .lead {
+             color: #f8f9fa;
+             font-size: 1.25rem;
+         }
+         .list-group-item{
+             background-color: #1e3a56;
+             border: none;
+             padding: 15px;
+             border-radius: 25px;
+             margin-bottom: 15px;
+             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+         }
+         .list-group-item:hover{
+             background-color: #27597c;
+         }
+         .list-group-item span{
+             font-size: 20px;
+             color: white;
+         }
+         button {
+             font-size: 20px;
+             padding: 8px 20px;
+             background-color: #0d6efd;
+             border: none;
+             border-radius: 5px;
+             color: white;
+             cursor: pointer;
+             transition: background-color 0.5s ease;
+         }
+         button:hover {
+             background-color: #0b5ed7;
+         }
+         .container {
+             max-width: 800px;
+             margin: 50px auto;
+             text-align: center;
+         }
+    </style>
 </head>
 <body>
+<div layout:fragment="main-content" class="container mt-5">
+<h1 class="mb-4"> Property rental management system</h1>
+    <p class="lead"> Manage Forms</p>
 
+    <div class="list-group-item d-flex justify-content-between align-items-center">
+        <span> Manage Property Forms</span>
+            <form th:action="@{'/property-form/list'}" method="get">
+                <button type="submit" class="btn btn-primary">Manage</button>
+            </form>
+    </div>
+
+
+
+    <div class="list-group-item d-flex justify-content-between align-items-center">
+
+        <span> Manage Rental Forms</span>
+        <form th:action="@{'/rental-form/list'}" method="get">
+            <button type="submit" class="btn btn-primary">Manage</button>
+        </form>
+    </div>
+
+    <div class="list-group-item d-flex justify-content-between align-items-center">
+        <span> Manage Users</span>
+        <form th:action="@{'/user/list'}" method="get">
+            <button type="submit" class="btn btn-primary">Manage</button>
+        </form>
+    </div>
+    </div>
 </body>
 </html>

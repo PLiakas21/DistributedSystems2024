@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 @Controller
 @RequestMapping("/rental-form")
 public class RentalFormController {
@@ -16,24 +17,31 @@ public class RentalFormController {
         this.rentalFormService = rentalFormService;
     }
 
+    @GetMapping
+    public String redirectToList() {
+        return "redirect:/rental-form/list";
+    }
+
     // List the Rental Forms
     @GetMapping("/list")
     public String listRentalForms(Model model) {
         model.addAttribute("rentalForms", rentalFormService.getRentalForms());
-        return "rental_form_list";
+        return "rentalForm";
     }
 
     @GetMapping("/get/{id}")
     public String getRentalForm(@ModelAttribute Integer id, Model model) {
         model.addAttribute("rentalForm", rentalFormService.getRentalForm(id));
-        return "rental_form";
+        return "rentalForm";
     }
+
 
     // Create a new Rental Form
     @GetMapping("/create")
     public String createRentalForm(Model model) {
+        model.addAttribute("rentalForms", rentalFormService.getRentalForms());
         model.addAttribute("rentalForm", new RentalForm());
-        return "rental_form_create";
+        return "rentalForm";
     }
 
     // Save Rental Form to the database
@@ -51,4 +59,5 @@ public class RentalFormController {
         model.addAttribute("rentalForms", rentalFormService.getRentalForms());
         return "redirect:/rental-form/list";
     }
+
 }

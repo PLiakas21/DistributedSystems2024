@@ -4,12 +4,10 @@ import gr.hua.dit.ds.DistributedSystems.entities.User;
 import gr.hua.dit.ds.DistributedSystems.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
     
     private UserService userService;
@@ -17,12 +15,15 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-    
+
+    public String redirectToList() {
+        return "redirect:/user/list";
+    }
     // List the Users
     @GetMapping("/list")
     public String listUsers(Model model) {
         model.addAttribute("users", userService.getUsers());
-        return "user_list";
+        return "user";
     }
 
     @GetMapping("/get/{id}")
@@ -35,7 +36,7 @@ public class UserController {
     @GetMapping("/create")
     public String createUser(Model model) {
         model.addAttribute("user", new User());
-        return "user_create";
+        return "user";
     }
 
     // Save User to the database
