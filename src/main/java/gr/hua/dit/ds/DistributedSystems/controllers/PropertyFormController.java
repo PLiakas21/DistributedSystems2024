@@ -16,24 +16,32 @@ public class PropertyFormController {
         this.propertyFormService = propertyFormService;
     }
 
+    @GetMapping
+    public String redirectToList() {
+        return "redirect:/property-form/list";
+    }
+
     // List the Property Forms
     @GetMapping("/list")
     public String listPropertyForms(Model model) {
         model.addAttribute("propertyForms", propertyFormService.getPropertyForms());
-        return "property_form_list";
+        return "propertyForm";
     }
+
 
     @GetMapping("/get/{id}")
     public String getPropertyForm(@ModelAttribute Integer id, Model model) {
         model.addAttribute("propertyForm", propertyFormService.getPropertyForm(id));
-        return "property_form";
+        return "propertyForm";
     }
+
 
     // Create a new Property Form
     @GetMapping("/create")
     public String createPropertyForm(Model model) {
+        model.addAttribute("propertyForms", propertyFormService.getPropertyForms());
         model.addAttribute("propertyForm", new PropertyForm());
-        return "property_form_create";
+        return "propertyForm";
     }
 
     // Save Property Form to the database
@@ -51,4 +59,5 @@ public class PropertyFormController {
         model.addAttribute("propertyForms", propertyFormService.getPropertyForms());
         return "redirect:/property-form/list";
     }
+
 }
