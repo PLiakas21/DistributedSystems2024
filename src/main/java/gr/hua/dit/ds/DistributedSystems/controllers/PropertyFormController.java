@@ -18,21 +18,21 @@ public class PropertyFormController {
 
     @GetMapping
     public String redirectToList() {
-        return "redirect:/property-form/list";
+        return "redirect:form/property-form/list";
     }
 
     // List the Property Forms
     @GetMapping("/list")
     public String listPropertyForms(Model model) {
         model.addAttribute("propertyForms", propertyFormService.getPropertyForms());
-        return "propertyForm";
+        return "form/propertyForm";
     }
 
 
     @GetMapping("/get/{id}")
     public String getPropertyForm(@ModelAttribute Integer id, Model model) {
         model.addAttribute("propertyForm", propertyFormService.getPropertyForm(id));
-        return "propertyForm";
+        return "form/propertyForm";
     }
 
 
@@ -41,7 +41,7 @@ public class PropertyFormController {
     public String createPropertyForm(Model model) {
         model.addAttribute("propertyForms", propertyFormService.getPropertyForms());
         model.addAttribute("propertyForm", new PropertyForm());
-        return "propertyForm";
+        return "form/propertyForm";
     }
 
     // Save Property Form to the database
@@ -49,7 +49,7 @@ public class PropertyFormController {
     public String savePropertyForm(@ModelAttribute PropertyForm propertyForm, Model model) {
         propertyFormService.savePropertyForm(propertyForm);
         model.addAttribute("propertyForms", propertyFormService.getPropertyForms());
-        return "redirect:/property-form/list";
+        return "redirect:form/property-form/list";
     }
 
     // Delete a Property Form
@@ -57,7 +57,7 @@ public class PropertyFormController {
     public String deletePropertyForm(@PathVariable Integer id, Model model) {
         propertyFormService.deletePropertyForm(id);
         model.addAttribute("propertyForms", propertyFormService.getPropertyForms());
-        return "redirect:/property-form/list";
+        return "redirect:form/property-form/list";
     }
 
 }

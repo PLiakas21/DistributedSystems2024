@@ -19,20 +19,20 @@ public class RentalFormController {
 
     @GetMapping
     public String redirectToList() {
-        return "redirect:/rental-form/list";
+        return "redirect:form/rental-form/list";
     }
 
     // List the Rental Forms
     @GetMapping("/list")
     public String listRentalForms(Model model) {
         model.addAttribute("rentalForms", rentalFormService.getRentalForms());
-        return "rentalForm";
+        return "form/rentalForm";
     }
 
     @GetMapping("/get/{id}")
     public String getRentalForm(@ModelAttribute Integer id, Model model) {
         model.addAttribute("rentalForm", rentalFormService.getRentalForm(id));
-        return "rentalForm";
+        return "form/rentalForm";
     }
 
 
@@ -41,7 +41,7 @@ public class RentalFormController {
     public String createRentalForm(Model model) {
         model.addAttribute("rentalForms", rentalFormService.getRentalForms());
         model.addAttribute("rentalForm", new RentalForm());
-        return "rentalForm";
+        return "form/rentalForm";
     }
 
     // Save Rental Form to the database
@@ -49,7 +49,7 @@ public class RentalFormController {
     public String saveRentalForm(@ModelAttribute RentalForm rentalForm, Model model) {
         rentalFormService.saveRentalForm(rentalForm);
         model.addAttribute("rentalForms", rentalFormService.getRentalForms());
-        return "redirect:/rental-form/list";
+        return "redirect:form/rental-form/list";
     }
 
     // Delete a Rental Form
@@ -57,7 +57,7 @@ public class RentalFormController {
     public String deleteRentalForm(@PathVariable Integer id, Model model) {
         rentalFormService.deleteRentalForm(id);
         model.addAttribute("rentalForms", rentalFormService.getRentalForms());
-        return "redirect:/rental-form/list";
+        return "redirect:form/rental-form/list";
     }
 
 }
