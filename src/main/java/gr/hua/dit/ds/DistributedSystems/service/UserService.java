@@ -33,10 +33,19 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public void setAdmin(User user){
+        Role role = roleRepository.findByName("ROLE_ADMIN")
+                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+        user.setRoles(roles);
+        userRepository.updateOrInsert(user);
+    }
+
     @Transactional
     public Integer saveUser(User user) {
-        String passwd= user.getPassword();
-        String encodedPassword = passwordEncoder.encode(passwd);
+        String password= user.getPassword();
+        String encodedPassword = passwordEncoder.encode(password);
         user.setPassword(encodedPassword);
 
         Role role = roleRepository.findByName("ROLE_USER")
