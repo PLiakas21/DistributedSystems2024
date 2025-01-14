@@ -20,6 +20,13 @@ public class UserController {
         return "redirect:/user/list";
     }
 
+    @GetMapping("/register")
+    public String register(Model model) {
+        User user = new User();
+        model.addAttribute("user", user);
+        return "auth/register";
+    }
+
     // List the Users
     @GetMapping("/list")
     public String listUsers(Model model) {
@@ -41,7 +48,7 @@ public class UserController {
     }
 
     // Save User to the database
-    @PostMapping("/save")
+    @PostMapping("/saveUser")
     public String saveUser(@ModelAttribute User user, Model model) {
         userService.saveUser(user);
         model.addAttribute("users", userService.getUsers());
