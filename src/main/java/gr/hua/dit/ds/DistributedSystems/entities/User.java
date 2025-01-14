@@ -39,7 +39,6 @@ public class User {
 
     @Column(nullable = false)
     @NotBlank
-    @Size(min = 3, max = 20)
     private String password;
 
     @Column(nullable = false)

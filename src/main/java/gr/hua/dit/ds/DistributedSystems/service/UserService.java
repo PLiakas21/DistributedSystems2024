@@ -34,12 +34,16 @@ public class UserService implements UserDetailsService {
     }
 
     public void setAdmin(User user){
+        String password= user.getPassword();
+        String encodedPassword = passwordEncoder.encode(password);
+        user.setPassword(encodedPassword);
+
         Role role = roleRepository.findByName("ROLE_ADMIN")
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         Set<Role> roles = new HashSet<>();
         roles.add(role);
         user.setRoles(roles);
-        userRepository.updateOrInsert(user);
+        userRepository.updateUser(user);
     }
 
     @Transactional
@@ -74,7 +78,7 @@ public class UserService implements UserDetailsService {
         else {
             User user = opt.get();
             return new org.springframework.security.core.userdetails.User(
-                    user.getEmail(),
+                    user.getUsername(),
                     user.getPassword(),
                     user.getRoles()
                             .stream()
