@@ -2,6 +2,7 @@ package gr.hua.dit.ds.DistributedSystems.controllers;
 
 import gr.hua.dit.ds.DistributedSystems.entities.User;
 import gr.hua.dit.ds.DistributedSystems.service.UserService;
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +13,31 @@ public class UserController {
     
     private UserService userService;
 
+    @PostConstruct
+    public void setup(){
+        User admin = new User();
+        admin.setUsername("admin");
+        admin.setPassword("password");
+        admin.setName("ad");
+        admin.setSurname("min");
+        admin.setEmail("admin@gmail.com");
+        admin.setPhone("9203492039");
+        userService.setAdmin(admin);
+    }
+
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
     public String redirectToList() {
         return "redirect:/user/list";
+    }
+
+    @GetMapping("/register")
+    public String register(Model model) {
+        User user = new User();
+        model.addAttribute("user", user);
+        return "auth/register";
     }
 
     // List the Users
@@ -41,7 +61,7 @@ public class UserController {
     }
 
     // Save User to the database
-    @PostMapping("/save")
+    @PostMapping("/saveUser")
     public String saveUser(@ModelAttribute User user, Model model) {
         userService.saveUser(user);
         model.addAttribute("users", userService.getUsers());
