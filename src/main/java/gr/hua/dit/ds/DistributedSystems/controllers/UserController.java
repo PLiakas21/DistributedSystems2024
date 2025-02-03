@@ -33,14 +33,6 @@ public class UserController {
         return "redirect:/user/list";
     }
 
-    @GetMapping("/register")
-    public String register(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
-        return "auth/register";
-    }
-
-    // List the Users
     @GetMapping("/list")
     public String listUsers(Model model) {
         model.addAttribute("users", userService.getUsers());
@@ -53,19 +45,10 @@ public class UserController {
         return "user/user";
     }
 
-    // Create a new User
     @GetMapping("/create")
     public String createUser(Model model) {
         model.addAttribute("user", new User());
         return "user/user";
-    }
-
-    // Save User to the database
-    @PostMapping("/saveUser")
-    public String saveUser(@ModelAttribute User user, Model model) {
-        userService.saveUser(user);
-        model.addAttribute("users", userService.getUsers());
-        return "redirect:user/user/list";
     }
 
     // Delete a User

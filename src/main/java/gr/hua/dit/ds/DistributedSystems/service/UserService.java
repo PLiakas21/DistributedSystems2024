@@ -47,7 +47,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public Integer saveUser(User user) {
+    public void saveUser(User user) {
         String password= user.getPassword();
         String encodedPassword = passwordEncoder.encode(password);
         user.setPassword(encodedPassword);
@@ -58,8 +58,7 @@ public class UserService implements UserDetailsService {
         roles.add(role);
         user.setRoles(roles);
 
-        user = userRepository.save(user);
-        return user.getId();
+        userRepository.save(user);
     }
 
     @Transactional
@@ -105,5 +104,15 @@ public class UserService implements UserDetailsService {
     @Transactional
     public void deleteUser(Integer user_id) {
         userRepository.deleteById(user_id);
+    }
+
+    @Transactional
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    @Transactional
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
     }
 }

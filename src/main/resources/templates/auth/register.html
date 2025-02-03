@@ -10,28 +10,56 @@
 </head>
 <body>
 <div layout:fragment="main-content">
-    <div th:if="${param.error}">
-        Invalid username and password.
-    </div>
     <h3>User Registration</h3>
-    <form th:action="@{/saveUser}" method="post" th:object="${user}">
+    <form th:action="@{/registerUser}" method="post" th:object="${user}">
+        <!-- Username Field -->
         <div class="form-group row">
             <label for="username"> Username</label>
-            <input type="text" class="form-control" th:field="*{user.username}" id="username"/>
+            <input type="text" class="form-control" th:field="*{username}" id="username" required />
+            <span class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
         </div>
+
+        <!-- Name Field -->
+        <div class="form-group row">
+            <label for="name"> Name</label>
+            <input type="text" class="form-control" th:field="*{name}" id="name" required />
+            <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        </div>
+
+        <!-- Surname Field -->
+        <div class="form-group row">
+            <label for="surname"> Surname</label>
+            <input type="text" class="form-control" th:field="*{surname}" id="surname" required />
+            <span class="text-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
+        </div>
+
+        <!-- Email Field -->
         <div class="form-group row">
             <label for="email"> Email</label>
-            <input type="text" class="form-control"  th:field="*{user.email}" id="email"/>
+            <input type="email" class="form-control" th:field="*{email}" id="email" required />
+            <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
         </div>
+
+        <!-- Password Field -->
         <div class="form-group row">
-            <label for="password"> Password </label>
-            <input type="password" class="form-control"  id="password" th:field="*{user.password}"/>
+            <label for="password"> Password</label>
+            <input type="password" class="form-control" th:field="*{password}" id="password" required />
+            <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
         </div>
-        <div><input type="submit" class="btn btn-primary" value="Sign Up"/></div>
+
+        <!-- Phone Field -->
+        <div class="form-group row">
+            <label for="phone"> Phone</label>
+            <input type="text" class="form-control" th:field="*{phone}" id="phone" required />
+            <span class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+        </div>
+
+        <!-- Submit Button -->
+        <div>
+            <input type="submit" class="btn btn-primary" value="Sign Up" />
+        </div>
     </form>
     <div th:text="${msg}"></div>
 </div>
-</div>
 </body>
 </html>
-

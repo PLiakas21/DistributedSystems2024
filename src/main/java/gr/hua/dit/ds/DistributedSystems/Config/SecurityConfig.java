@@ -32,7 +32,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home", "/register", "/saveUser", "/images/**", "/js/**", "/css/**").permitAll()
+                        .requestMatchers("/", "/home", "/error","/register", "/registerUser", "/saveUser", "/images/**", "/js/**", "/css/**").permitAll()
                         .requestMatchers("/user/**", "/form/**").hasRole("ADMIN")
                         .requestMatchers("/form/propertyForm").hasRole("LANDLORD")
                         .requestMatchers("/form/rentalForm").hasRole("TENANT")

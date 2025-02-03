@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.List;
 
 @Entity
-@Table(name="users",
+@Table(name="app_user",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "username"),
                 @UniqueConstraint(columnNames = "email"),
@@ -25,29 +25,29 @@ public class User {
     private Integer id;
 
     @Column(nullable = false)
-    @NotBlank
-    @Size(min = 3, max = 20)
+    @NotBlank(message = "Username is required")
+    @Size(min = 1, max = 20, message = "Username must be between 3 and 20 characters")
     private String username;
 
     @Column(nullable = false)
-    @NotBlank
+    @NotBlank(message = "Name is required")
     private String name;
 
     @Column(nullable = false)
-    @NotBlank
+    @NotBlank(message = "Surname is required")
     private String surname;
 
     @Column(nullable = false)
-    @NotBlank
+    @NotBlank(message = "Email is required")
     private String password;
 
     @Column(nullable = false)
-    @NotBlank
-    @Email
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
     private String email;
 
     @Column(nullable = false)
-    @NotBlank
+    @NotBlank(message = "Phone is required")
     @Size(min=10,max=10)
     @Pattern(regexp="(^$|[0-9]{10})", message = "Phone number must contain only digits")
     private String phone;
