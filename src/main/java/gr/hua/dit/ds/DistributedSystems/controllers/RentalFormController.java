@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@RequestMapping("/rental-form")
+@RequestMapping("/rentalForm")
 public class RentalFormController {
 
     private RentalFormService rentalFormService;
@@ -19,7 +19,7 @@ public class RentalFormController {
 
     @GetMapping
     public String redirectToList() {
-        return "redirect:form/rental-form/list";
+        return "redirect:form/rentalForm/list";
     }
 
     // List the Rental Forms
@@ -49,7 +49,7 @@ public class RentalFormController {
     public String saveRentalForm(@ModelAttribute RentalForm rentalForm, Model model) {
         rentalFormService.saveRentalForm(rentalForm);
         model.addAttribute("rentalForms", rentalFormService.getRentalForms());
-        return "redirect:form/rental-form/list";
+        return "redirect:form/rentalForm/list";
     }
 
     // Delete a Rental Form
@@ -57,7 +57,7 @@ public class RentalFormController {
     public String deleteRentalForm(@PathVariable Integer id, Model model) {
         rentalFormService.deleteRentalForm(id);
         model.addAttribute("rentalForms", rentalFormService.getRentalForms());
-        return "redirect:form/rental-form/list";
+        return "redirect:form/rentalForm/list";
     }
 
 }
