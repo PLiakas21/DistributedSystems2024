@@ -10,12 +10,15 @@
 </head>
 <body>
 <div layout:fragment="main-content">
+    <h3>Please log in to continue</h3>
+
     <div th:if="${param.error}">
         Invalid username and password.
     </div>
     <div th:if="${param.logout}">
         You have been logged out.
     </div>
+
     <form th:action="@{/login}" method="post">
         <div class="form-group">
             <label for="username"> Username</label>
@@ -27,6 +30,10 @@
         </div>
         <div><input type="submit" class="btn btn-primary" value="Sign In"/></div>
     </form>
+
+    <p style="font-size: small;">
+        Don't have an account? <a th:href="@{/register}">Sign up!</a>
+    </p>
 </div>
 </body>
 </html>

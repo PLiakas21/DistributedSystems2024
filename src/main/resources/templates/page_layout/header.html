@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,11 +10,10 @@
 
 <header class="masthead mb-auto" th:fragment="header">
     <div class="inner">
-        <h3 class="masthead-brand">Cover</h3>
         <nav class="nav nav-masthead justify-content-center">
-            <a class="nav-link active" href="/">Home</a>
-            <a class="nav-link" href="/property-form">Property Forms</a>
-            <a class="nav-link" href="/rental-form">Rental Forms</a>
+            <a class="nav-link" href="/">Main Page</a>
+            <a class="nav-link" href="/propertyForm/list">Property Forms</a>
+            <a class="nav-link" href="/rentalForm/list">Rental Forms</a>
             <a class="nav-link" href="/user/list">User</a>
         </nav>
     </div>

@@ -4,26 +4,27 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Form {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private Integer id;
+    protected Integer id;
 
     @ManyToOne
     @JoinColumn(name="users_id", nullable = false)
-    private User user;
+    protected User user;
 
     @Column(nullable = false)
-    private String date;
+    protected String date;
 
     @Column(nullable = false)
     @NotBlank
-    private String address;
+    protected String address;
 
     @Column(nullable = false)
-    private boolean status;
+    protected boolean status;
 
     public Form(Integer id, User user, String date, String address) {
         this.id = id;

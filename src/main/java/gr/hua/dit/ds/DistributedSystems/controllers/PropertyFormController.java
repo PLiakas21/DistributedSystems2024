@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/property-form")
+@RequestMapping("/propertyForm")
 public class PropertyFormController {
 
     private PropertyFormService propertyFormService;
@@ -18,7 +18,7 @@ public class PropertyFormController {
 
     @GetMapping
     public String redirectToList() {
-        return "redirect:form/property-form/list";
+        return "redirect:form/propertyForm/list";
     }
 
     // List the Property Forms
@@ -49,7 +49,7 @@ public class PropertyFormController {
     public String savePropertyForm(@ModelAttribute PropertyForm propertyForm, Model model) {
         propertyFormService.savePropertyForm(propertyForm);
         model.addAttribute("propertyForms", propertyFormService.getPropertyForms());
-        return "redirect:form/property-form/list";
+        return "redirect:form/propertyForm/list";
     }
 
     // Delete a Property Form
@@ -57,7 +57,7 @@ public class PropertyFormController {
     public String deletePropertyForm(@PathVariable Integer id, Model model) {
         propertyFormService.deletePropertyForm(id);
         model.addAttribute("propertyForms", propertyFormService.getPropertyForms());
-        return "redirect:form/property-form/list";
+        return "redirect:form/propertyForm/list";
     }
 
 }

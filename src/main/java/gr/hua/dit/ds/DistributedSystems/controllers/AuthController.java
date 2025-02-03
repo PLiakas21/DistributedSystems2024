@@ -32,4 +32,9 @@ public class AuthController {
     public String login() {
         return "auth/login";
     }
+
+    @GetMapping("/register")
+    public String signup() {
+        return "auth/register";
+    }
 }

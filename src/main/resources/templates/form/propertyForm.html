@@ -5,17 +5,10 @@
       layout:decorate="~{page_layout/layout}">
 <head>
     <title>Property Forms</title>
-   <style>
-        body {
-            background-color: #23395d;
-            color: #f8f9fa;
-        }
-    </style>
 </head>
 <body>
 <div layout:fragment="main-content">
     <h1>Property Forms</h1>
-    <a th:href="@{'/'}" class="btn btn-primary">Back to Home</a>
     <a th:href="@{'/property-form/create'}" class="btn btn-success">Create New Property Form</a>
     <table class="table table-bordered table-hover">
         <thead class="thead-dark">
@@ -38,8 +31,8 @@
         <td th:text="${form.propertyAddress}"></td>
         <td th:text="${form.rentPrice}"></td>
         <td>
-            <a th:href="@{'/property-form/edit/' + ${form.id}}">Edit</a>
-            <a th:href="@{'/property-form/delete/' + ${form.id}}">Delete</a>
+            <a th:href="@{'/propertyForm/edit/' + ${form.id}}">Edit</a>
+            <a th:href="@{'/propertyForm/delete/' + ${form.id}}">Delete</a>
         </td>
     </tr>
     </tbody>
