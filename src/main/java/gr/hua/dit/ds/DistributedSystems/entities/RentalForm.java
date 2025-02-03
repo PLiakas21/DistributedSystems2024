@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class RentalForm extends Form {
 
-    public RentalForm(Integer id, User user, String date, String address, double rentPrice) {
+    public RentalForm(Integer id, User user, String date, String address) {
         super(id, user, date, address);
     }
 
