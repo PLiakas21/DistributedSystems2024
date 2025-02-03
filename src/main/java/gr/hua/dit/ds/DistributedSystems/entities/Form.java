@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Form {
 
     @Id
