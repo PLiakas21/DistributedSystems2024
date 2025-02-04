@@ -1,83 +1,86 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en"
-       xmlns:th="http://www.thymeleaf.org"
-       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-       layout:decorate="~{page_layout/layout}">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
 <head>
-    <meta charset="UTF-8">
-    <title>Home Page</title>
-     <style>
-         h1 {
-             color: white;
-             font-size: 2.5rem;
-         }
-         .lead {
-             color: #f8f9fa;
-             font-size: 1.25rem;
-         }
-         .list-group-item{
-             background-color: #1e3a56;
-             border: none;
-             padding: 15px;
-             border-radius: 25px;
-             margin-bottom: 15px;
-             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-         }
-         .list-group-item:hover{
-             background-color: #27597c;
-         }
-         .list-group-item span{
-             font-size: 20px;
-             color: white;
-         }
-         button {
-             font-size: 20px;
-             padding: 8px 20px;
-             background-color: #0d6efd;
-             border: none;
-             border-radius: 5px;
-             color: white;
-             cursor: pointer;
-             transition: background-color 0.5s ease;
-         }
-         button:hover {
-             background-color: #0b5ed7;
-         }
-         .container {
-             max-width: 800px;
-             margin: 50px auto;
-             text-align: center;
-         }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>Cover Template for Bootstrap</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/cover/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../../static/css/cover.css"  th:href="@{/css/cover.css}" rel="stylesheet">
 </head>
-<body>
-<div layout:fragment="main-content" class="container mt-5">
-<h1 class="mb-4"> Property rental management system</h1>
-    <p class="lead"> Manage Forms</p>
 
-    <div class="list-group-item d-flex justify-content-between align-items-center">
-        <span> Manage Property Forms</span>
-            <form th:action="@{'/property-form/list'}" method="get">
-                <button type="submit" class="btn btn-primary">Manage</button>
-            </form>
+<body class="text-center">
+<div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto" th:replace="page_layout/header :: header">
+        <div class="inner">
+            <nav class="nav nav-masthead justify-content-center">
+                <a class="nav-link active" href="/">Home</a>
+            </nav>
+        </div>
+    </header>
+    <!-- Flash Messages -->
+    <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${successMessage}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <span th:text="${errorMessage}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
 
 
+    <main role="main" class="inner cover" layout:fragment="main-content">
+        <h1> I hate frontend </h1>
+    </main>
 
-    <div class="list-group-item d-flex justify-content-between align-items-center">
+    <footer class="mastfoot mt-auto" th:replace="page_layout/footer :: footer">
+        <div class="inner">
+            <p>Footer will be replaced</p>
+        </div>
+    </footer>
+</div>
 
-        <span> Manage Rental Forms</span>
-        <form th:action="@{'/rental-form/list'}" method="get">
-            <button type="submit" class="btn btn-primary">Manage</button>
-        </form>
-    </div>
 
-    <div class="list-group-item d-flex justify-content-between align-items-center">
-        <span> Manage Users</span>
-        <form th:action="@{'/user/list'}" method="get">
-            <button type="submit" class="btn btn-primary">Manage</button>
-        </form>
-    </div>
-    </div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="../../static/js/popper.min.js" th:src="@{/js/popper.min.js}" ></script>
+<script src="../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script>
+    // Get the current path from the browser's URL
+    const currentPath = window.location.pathname;
+
+    // Select all nav links
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    // Loop through each link and check if it matches the current path
+    navLinks.forEach(link => {
+        if (link.getAttribute('data-path') === currentPath) {
+            link.classList.add('active'); // Add the 'active' class
+        } else {
+            link.classList.remove('active'); // Remove the 'active' class (optional)
+        }
+    });
+</script>
 </body>
 </html>

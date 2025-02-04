@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
->
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -11,10 +11,20 @@
 <header class="masthead mb-auto" th:fragment="header">
     <div class="inner">
         <nav class="nav nav-masthead justify-content-center">
-            <a class="nav-link" href="/">Main Page</a>
-            <a class="nav-link" href="/propertyForm/list">Property Forms</a>
-            <a class="nav-link" href="/rentalForm/list">Rental Forms</a>
-            <a class="nav-link" href="/user/list">User</a>
+            <a class="nav-link" href="/" data-path="/" >Main Page</a>
+            <a sec:authorize="hasRole('ROLE_LANDLORD') || hasRole('ROLE_ADMIN')" class="nav-link" href="/propertyForm/list">Property Forms</a>
+            <a sec:authorize="hasRole('ROLE_TENANT') || hasRole('ROLE_ADMIN')" class="nav-link" href="/rentalForm/list">Rental Forms</a>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/user/list">Users</a>
+
+            <a sec:authorize="!isAuthenticated()" class="nav-link">
+                <a  class="nav-link" href="/login">Login</a>
+                <a  class="nav-link" href="/register">Register</a>
+            </a>
+            <a sec:authorize="isAuthenticated()"  class="nav-link">
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit"  class="btn btn-primary" value="Sign Out"/>
+                </form>
+            </a>
         </nav>
     </div>
 </header>
