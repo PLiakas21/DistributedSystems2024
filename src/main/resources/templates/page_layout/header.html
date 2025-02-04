@@ -22,9 +22,10 @@
             <a  class="btn btn-outline-primary" href="/login">Login</a>
             <a  class="btn btn-primary" href="/register">Register</a>
         </a>
-        <a sec:authorize="isAuthenticated()"  class="nav-link">
+        <a sec:authorize="isAuthenticated()" class="nav-link" style="display: flex; align-items: center;">
+            <p class="navbar-text" style="margin: 0 20px 0 0;">Logged in as: <span sec:authentication="name"></span></p>
             <form th:action="@{/logout}" method="post">
-                <input type="submit"  class="btn btn-danger" value="Sign Out"/>
+                <input type="submit" class="btn btn-danger" value="Sign Out"/>
             </form>
         </a>
     </div>
