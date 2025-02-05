@@ -16,14 +16,14 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     Boolean existsByEmail(String email);
 
-    default void updateUser(User user) {
-        User existing_user = findByUsername(user.getUsername()).orElse(null);
-        if (existing_user != null) {
-            delete(existing_user);
+    default void updateOrSave(User user){
+        Optional<User> opt = findByUsername(user.getUsername());
+        if (opt.isEmpty()) {
             save(user);
         }
         else {
-            save(user);
+            User currentUser = opt.get();
+            currentUser.updateUser(user);
         }
     }
 }

@@ -13,25 +13,17 @@ public class UserController {
     
     private UserService userService;
 
-    @PostConstruct
-    public void setup(){
-        User admin = new User();
-        admin.setUsername("admin");
-        admin.setPassword("password");
-        admin.setName("ad");
-        admin.setSurname("min");
-        admin.setEmail("admin@gmail.com");
-        admin.setPhone("9203492039");
-        userService.setAdmin(admin);
-    }
+//    @PostConstruct
+//    public void setup(){
+//        User admin = new User("admin", "ad", "min", "password", "admin@gmail.com", "9203492039");
+//
+//        userService.;
+//    }
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    public String redirectToList() {
-        return "redirect:/user/list";
-    }
 
     @GetMapping("/list")
     public String listUsers(Model model) {
@@ -45,13 +37,6 @@ public class UserController {
         return "user/user";
     }
 
-    @GetMapping("/create")
-    public String createUser(Model model) {
-        model.addAttribute("user", new User());
-        return "user/user";
-    }
-
-    // Delete a User
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable Integer id, Model model) {
         userService.deleteUser(id);

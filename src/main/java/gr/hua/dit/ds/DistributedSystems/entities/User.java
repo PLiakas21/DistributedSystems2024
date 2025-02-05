@@ -8,7 +8,6 @@ import jakarta.validation.constraints.Size;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.List;
 
 @Entity
 @Table(name="app_user",
@@ -53,7 +52,7 @@ public class User {
     private String phone;
 
     @OneToMany(cascade= {CascadeType.ALL})
-    private List<Form> formList;
+    private Set<Form> formList;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable( name = "user_roles",
@@ -68,6 +67,8 @@ public class User {
         this.password = password;
         this.email = email;
         this.phone = phone;
+        this.formList = new HashSet<>();
+        this.roles = new HashSet<>();
     }
 
     public User() {}
@@ -134,5 +135,24 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Form> getFormList() {return formList;}
+
+    public void setFormList(Set<Form> formList) {this.formList = formList;}
+
+    public void addForm(Form form) {formList.add(form);}
+
+    public void addRole(Role role) {roles.add(role);}
+
+    public void updateUser(User user) {
+        this.username = user.getUsername();
+        this.name = user.getName();
+        this.surname = user.getSurname();
+        this.password = user.getPassword();
+        this.email = user.getEmail();
+        this.phone = user.getPhone();
+        this.formList = user.getFormList();
+        this.roles = user.getRoles();
     }
 }

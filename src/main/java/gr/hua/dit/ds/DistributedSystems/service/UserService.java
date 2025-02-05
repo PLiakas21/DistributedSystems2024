@@ -4,6 +4,7 @@ import gr.hua.dit.ds.DistributedSystems.entities.Role;
 import gr.hua.dit.ds.DistributedSystems.entities.User;
 import gr.hua.dit.ds.DistributedSystems.repositories.UserRepository;
 import gr.hua.dit.ds.DistributedSystems.repositories.RoleRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,24 +34,12 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void setAdmin(User user){
-        String password= user.getPassword();
-        String encodedPassword = passwordEncoder.encode(password);
-        user.setPassword(encodedPassword);
-
-        Role role = roleRepository.findByName("ROLE_ADMIN")
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-        Set<Role> roles = new HashSet<>();
-        roles.add(role);
-        user.setRoles(roles);
-        userRepository.updateUser(user);
-    }
-
     @Transactional
     public void saveUser(User user) {
         String password= user.getPassword();
         String encodedPassword = passwordEncoder.encode(password);
         user.setPassword(encodedPassword);
+        user.setFormList(new HashSet<>());
 
         Role role = roleRepository.findByName("ROLE_USER")
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -62,10 +51,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public Integer updateUser(User user) {
-        user = userRepository.save(user);
-        return user.getId();
-    }
+    public void updateUser(User user) {userRepository.updateOrSave(user);}
 
     @Override
     @Transactional
@@ -87,8 +73,9 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public void updateOrInsertRole(Role role) {
-        roleRepository.updateOrInsert(role);
+    @Transactional
+    public void updateOrInsertRole(User user, Role role) {
+        user.addRole(role);
     }
 
     @Transactional
@@ -97,8 +84,13 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public User getUser(Integer user_id) {
-        return userRepository.findById(user_id).get();
+    public User getUser(Integer user_id) throws EntityNotFoundException {
+        Optional<User> opt = userRepository.findById(user_id);
+        if(opt.isEmpty())
+            throw new EntityNotFoundException("User with user_id: " + user_id + " not found !");
+        else {
+            return opt.get();
+        }
     }
 
     @Transactional
