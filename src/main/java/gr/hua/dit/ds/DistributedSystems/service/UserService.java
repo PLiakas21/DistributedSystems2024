@@ -74,7 +74,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public void updateOrInsertRole(User user, Role role) {
+    public void addRole(User user, Role role) {
         user.addRole(role);
     }
 
