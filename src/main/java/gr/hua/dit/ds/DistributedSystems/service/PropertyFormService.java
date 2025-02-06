@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class PropertyFormService {
 
-    private PropertyFormRepository propertyFormRepository;
+    private final PropertyFormRepository propertyFormRepository;
 
     public PropertyFormService(PropertyFormRepository propertyFormRepository) {
         this.propertyFormRepository = propertyFormRepository;

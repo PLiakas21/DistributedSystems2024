@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/propertyForm")
 public class PropertyFormController {
 
-    private PropertyFormService propertyFormService;
+    private final PropertyFormService propertyFormService;
 
     public PropertyFormController(PropertyFormService propertyFormService) {
         this.propertyFormService = propertyFormService;

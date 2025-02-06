@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class RentalFormService {
 
-    private RentalFormRepository rentalFormRepository;
+    private final RentalFormRepository rentalFormRepository;
 
     public RentalFormService(RentalFormRepository rentalFormRepository) {
         this.rentalFormRepository = rentalFormRepository;

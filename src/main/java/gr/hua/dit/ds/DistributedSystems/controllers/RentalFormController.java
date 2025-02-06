@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/rentalForm")
 public class RentalFormController {
 
-    private RentalFormService rentalFormService;
+    private final RentalFormService rentalFormService;
 
     public RentalFormController(RentalFormService rentalFormService) {
         this.rentalFormService = rentalFormService;
