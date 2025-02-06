@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Property Form Details</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Property Form Details</h2>
+            </div>
+            <div class="card-body">
+                <p><strong>ID:</strong> <span th:text="${propertyForm.id}"></span> </p>
+                <p><strong>Date:</strong> <span th:text="${propertyForm.date}"></span> </p>
+                <p><strong>Property Address:</strong> <span th:text="${propertyForm.propertyAddress}"></span> </p>
+                <p><strong>Rent Price:</strong> <span th:text="${propertyForm.rentPrice}"></span> €</p>
+                <p>
+                    <strong>Available for renting:</strong>
+                    <span th:if="${propertyForm.openForRenting}" class="text-success">Available</span>
+                    <span th:if="${!propertyForm.openForRenting}" class="text-danger">Not Available</span>
+                </p>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-outline-primary"
+                        th:if="${propertyForm.openForRenting}"
+                        th:href="@{'/rentalForm/create'}">Apply for Renting</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

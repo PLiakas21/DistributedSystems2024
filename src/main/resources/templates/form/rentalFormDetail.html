@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Rental Form Details</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Rental Form Details</h2>
+            </div>
+            <div class="card-body">
+                <p><strong>User:</strong> <span th:text="${rentalForm.user.username}"></span> </p>
+                <p><strong>Date:</strong> <span th:text="${rentalForm.date}"></span> </p>
+                <p><strong>Address:</strong> <span th:text="${rentalForm.address}"></span> </p>
+                <p>
+                    <strong>Status:</strong>
+                    <span th:if="${rentalForm.status}" class="text-success">Accepted</span>
+                    <span th:if="${!rentalForm.status}" class="text-warning">Pending</span>
+                </p>
+            </div>
+            <div class="card-footer">
+                <div th:if="${!rentalForm.status}">
+                    <button type="button" class="btn btn-success"
+                            th:onclick="|location.href='/rentalForm/accept/' + ${rentalForm.id}|">
+                        Accept
+                        </button>
+                    <button type="button" class="btn btn-danger"
+                    th:onclick="|location.href='/rentalForm/reject/' + ${rentalForm.id}|">
+                        Reject
+                        </button>
+                </div>
+                <div th:if="${rentalForm.status}">
+                    <P class="text-success">Form already accepted</P>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

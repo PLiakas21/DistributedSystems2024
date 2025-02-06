@@ -28,13 +28,15 @@ public class PropertyFormController {
         return "form/propertyForm";
     }
 
-
-    @GetMapping("/get/{id}")
-    public String getPropertyForm(@ModelAttribute Integer id, Model model) {
-        model.addAttribute("propertyForm", propertyFormService.getPropertyForm(id));
-        return "form/propertyForm";
+    @GetMapping("/{id}")
+    public String showPropertyFormDetail(@PathVariable("id") Integer id, Model model) {
+        PropertyForm propertyForm = propertyFormService.getPropertyForm(id);
+        if (propertyForm == null) {
+            return "redirect:form/propertyForm/list";
+        }
+        model.addAttribute("propertyForm", propertyForm);
+        return "form/propertyFormDetail";
     }
-
 
     // Create a new Property Form
     @GetMapping("/create")
