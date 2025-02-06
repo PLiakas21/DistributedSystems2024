@@ -23,7 +23,7 @@ public class RentalFormService {
 
     @Transactional
     public RentalForm getRentalForm(Integer id) {
-        return  rentalFormRepository.findById(id).get();
+        return rentalFormRepository.findById(id).orElseThrow(() -> new RuntimeException("Rental form not found"));
     }
 
     @Transactional
