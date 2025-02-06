@@ -1,5 +1,6 @@
 package gr.hua.dit.ds.DistributedSystems.controllers;
 
+import gr.hua.dit.ds.DistributedSystems.entities.Role;
 import gr.hua.dit.ds.DistributedSystems.entities.User;
 import gr.hua.dit.ds.DistributedSystems.service.UserService;
 import jakarta.annotation.PostConstruct;
@@ -24,6 +25,14 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("/addRole/{id}/{role}")
+    public String addRole(@PathVariable Integer id, @PathVariable String role, Model model) {
+        model.addAttribute("users", userService.getUsers());
+        userService.addRole(id, role);
+        String message = "Role added successfully";
+        model.addAttribute("msg", message);
+        return "user/user";
+    }
 
     @GetMapping("/list")
     public String listUsers(Model model) {

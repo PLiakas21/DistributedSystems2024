@@ -51,7 +51,10 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public void updateUser(User user) {userRepository.updateOrSave(user);}
+    public void updateUser(Integer userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        userRepository.updateOrSave(user);
+    }
 
     @Override
     @Transactional
@@ -74,8 +77,10 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public void addRole(User user, Role role) {
-        user.addRole(role);
+    public void addRole(Integer userId, String role){
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        Role userRole = roleRepository.findByName(role).orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        user.addRole(userRole);
     }
 
     @Transactional
@@ -84,13 +89,8 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public User getUser(Integer user_id) throws EntityNotFoundException {
-        Optional<User> opt = userRepository.findById(user_id);
-        if(opt.isEmpty())
-            throw new EntityNotFoundException("User with user_id: " + user_id + " not found !");
-        else {
-            return opt.get();
-        }
+    public User getUser(Integer user_id) {
+        return userRepository.findById(user_id).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     @Transactional

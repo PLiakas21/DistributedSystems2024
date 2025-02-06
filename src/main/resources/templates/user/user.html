@@ -10,6 +10,10 @@
 <body>
 <div layout:fragment="main-content">
   <h1>Users</h1>
+
+  <!-- Display the message if it exists -->
+  <div th:if="${msg}" class="alert alert-success" th:text="${msg}"></div>
+
   <table class="table table-bordered table-hover">
     <thead>
     <tr>
@@ -31,7 +35,10 @@
       <td th:text="${user.email}"></td>
       <td th:text="${user.phone}"></td>
       <td>
-        <a th:href="@{'/user/delete/' + ${user.id}}" class="btn btn-danger">delete</a>
+        <a th:href="@{'/user/addRole/' + ${user.id} + ${'/'} + ${'ROLE_LANDLORD'} }" class="btn btn-primary">Add Role Landlord</a>
+        <a th:href="@{'/user/addRole/' + ${user.id} + ${'/'} + ${'ROLE_TENANT'} }" class="btn btn-primary">Add Role Tenant</a>
+        <a th:href="@{'/user/addRole/' + ${user.id} + ${'/'} + ${'ROLE_ADMIN'} }" class="btn btn-primary">Add Role Admin</a>
+        <a th:href="@{'/user/delete/' + ${user.id}}" class="btn btn-danger">Delete</a>
       </td>
     </tr>
     </tbody>

@@ -2,10 +2,12 @@ package gr.hua.dit.ds.DistributedSystems.service;
 
 import gr.hua.dit.ds.DistributedSystems.entities.PropertyForm;
 import gr.hua.dit.ds.DistributedSystems.repositories.PropertyFormRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PropertyFormService {
@@ -22,8 +24,8 @@ public class PropertyFormService {
     }
 
     @Transactional
-    public PropertyForm getPropertyForm(Integer id) {
-        return propertyFormRepository.findById(id).get();
+    public PropertyForm getPropertyForm(Integer id) throws EntityNotFoundException{
+        return propertyFormRepository.findById(id).orElseThrow(() -> new RuntimeException("Property form not found"));
     }
 
     @Transactional

@@ -48,7 +48,7 @@ public class AuthController {
     }
 
     @PostMapping("/registerUser")
-    public String registerUser(@Valid User user, BindingResult bindingResult, Model model) {
+    public String registerUser(@Valid User user, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "auth/register";
