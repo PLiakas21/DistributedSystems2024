@@ -13,7 +13,7 @@ public class Form {
     protected Integer id;
 
     @ManyToOne
-    @JoinColumn(name="users_id", nullable = false)
+    @JoinColumn(name="app_user_id", nullable = false)
     protected User user;
 
     @Column(nullable = false)
@@ -26,8 +26,7 @@ public class Form {
     @Column(nullable = false)
     protected boolean status;
 
-    public Form(Integer id, User user, String date, String address) {
-        this.id = id;
+    public Form(User user, String date, String address) {
         this.user = user;
         this.date = date;
         this.address = address;
