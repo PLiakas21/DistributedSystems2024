@@ -8,6 +8,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class PropertyFormService {
@@ -32,6 +34,12 @@ public class PropertyFormService {
     public void savePropertyForm(User user, PropertyForm propertyForm) {
         propertyForm.setUser(user);
         propertyForm.setOpenForRenting(true);
+
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = now.format(formatter);
+
+        propertyForm.setDate(formattedDate);
         propertyFormRepository.save(propertyForm);
     }
 
