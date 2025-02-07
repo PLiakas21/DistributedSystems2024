@@ -1,7 +1,9 @@
 package gr.hua.dit.ds.DistributedSystems.entities;
 
 import jakarta.persistence.*;
-import java.util.List;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class PropertyForm extends Form {
@@ -13,12 +15,13 @@ public class PropertyForm extends Form {
     private boolean openForRenting;
 
     @OneToMany(cascade= {CascadeType.ALL})
-    private List<RentalForm> rentalFormList;
+    private Set<RentalForm> rentalFormList;
 
-    public PropertyForm(Integer id, User user, String date, String address, double rentPrice, boolean openForRenting) {
-        super(id, user, date, address);
+    public PropertyForm(User user, String date, String address, double rentPrice, boolean openForRenting) {
+        super(user, date, address);
         this.rentPrice = rentPrice;
         this.openForRenting = openForRenting;
+        this.rentalFormList = new HashSet<>();
     }
 
     public PropertyForm() {
@@ -39,5 +42,13 @@ public class PropertyForm extends Form {
 
     public void setOpenForRenting(boolean openForRenting) {
         this.openForRenting = openForRenting;
+    }
+
+    public Set<RentalForm> getRentalFormList() {
+        return rentalFormList;
+    }
+
+    public void setRentalFormList(Set<RentalForm> rentalFormList) {
+        this.rentalFormList = rentalFormList;
     }
 }
