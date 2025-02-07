@@ -1,6 +1,7 @@
 package gr.hua.dit.ds.DistributedSystems.service;
 
 import gr.hua.dit.ds.DistributedSystems.entities.PropertyForm;
+import gr.hua.dit.ds.DistributedSystems.entities.User;
 import gr.hua.dit.ds.DistributedSystems.repositories.PropertyFormRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -28,7 +29,9 @@ public class PropertyFormService {
     }
 
     @Transactional
-    public void savePropertyForm(PropertyForm propertyForm) {
+    public void savePropertyForm(User user, PropertyForm propertyForm) {
+        propertyForm.setUser(user);
+        propertyForm.setOpenForRenting(true);
         propertyFormRepository.save(propertyForm);
     }
 
