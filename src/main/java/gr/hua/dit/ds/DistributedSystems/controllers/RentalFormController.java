@@ -29,10 +29,11 @@ public class RentalFormController {
         return "form/rentalForm";
     }
 
-    @GetMapping("/get/{id}")
-    public String getRentalForm(@ModelAttribute Integer id, Model model) {
-        model.addAttribute("rentalForm", rentalFormService.getRentalForm(id));
-        return "form/rentalForm";
+    @GetMapping("/{id}")
+    public String showRentalFormDetails(@PathVariable("id") Integer id, Model model) {
+        RentalForm rentalForm = rentalFormService.getRentalForm(id);
+        model.addAttribute("rentalForm", rentalForm);
+        return "form/rentalFormDetail";
     }
 
 
@@ -60,4 +61,18 @@ public class RentalFormController {
         return "redirect:form/rentalForm/list";
     }
 
+    @GetMapping("/accept/{id}")
+    public String acceptRentalForm(@PathVariable("id") Integer id, Model model) {
+        RentalForm rentalForm = rentalFormService.getRentalForm(id);
+        if (rentalForm != null) {
+            rentalForm.setStatus(true);
+            rentalFormService.saveRentalForm(rentalForm);
+        }
+        return "redirect:/rentalForm/details/" + id;
+    }
+    @GetMapping("/reject/{id}")
+    public String rejectRentalForm(@PathVariable("id") Integer id, Model model) {
+        rentalFormService.deleteRentalForm(id);
+        return "redirect:/rentalForm/list";
+    }
 }
