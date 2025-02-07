@@ -16,9 +16,8 @@ public class UserController {
 
 //    @PostConstruct
 //    public void setup(){
-//        User admin = new User("admin", "ad", "min", "password", "admin@gmail.com", "9203492039");
-//
-//        userService.;
+//        User user = userService.loadUserByUsername("admin");
+//        userService.addRole(user.getId(), "ROLE_ADMIN");
 //    }
 
     public UserController(UserService userService) {
