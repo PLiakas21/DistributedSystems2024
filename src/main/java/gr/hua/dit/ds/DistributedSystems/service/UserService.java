@@ -4,7 +4,6 @@ import gr.hua.dit.ds.DistributedSystems.entities.Role;
 import gr.hua.dit.ds.DistributedSystems.entities.User;
 import gr.hua.dit.ds.DistributedSystems.repositories.UserRepository;
 import gr.hua.dit.ds.DistributedSystems.repositories.RoleRepository;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -74,6 +73,14 @@ public class UserService implements UserDetailsService {
                             .collect(Collectors.toSet())
             );
         }
+    }
+
+    @Transactional
+    public User getUserByUsername(String username) {
+        Optional<User> opt = userRepository.findByUsername(username);
+        if (opt.isEmpty())
+            throw new UsernameNotFoundException("User with username: " + username + " not found !");
+        return opt.get();
     }
 
     @Transactional
