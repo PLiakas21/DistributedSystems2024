@@ -57,7 +57,7 @@ public class User implements UserDetails {
     @Pattern(regexp="(^$|[0-9]{10})", message = "Phone number must contain only digits")
     private String phone;
 
-    @OneToMany(cascade= {CascadeType.ALL})
+    @OneToMany(fetch = FetchType.EAGER, cascade= {CascadeType.ALL})
     private Set<Form> formList;
 
     @ManyToMany(fetch = FetchType.EAGER)

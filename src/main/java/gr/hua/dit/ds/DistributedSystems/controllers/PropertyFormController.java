@@ -46,8 +46,8 @@ public class PropertyFormController {
     }
 
     @PostMapping("/save")
-    public String savePropertyForm(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute PropertyForm propertyForm) {
-        propertyFormService.savePropertyForm((User) userService.loadUserByUsername(userDetails.getUsername()), propertyForm);
+    public String savePropertyForm(@AuthenticationPrincipal User user, @ModelAttribute PropertyForm propertyForm) {
+        propertyFormService.savePropertyForm(user, propertyForm);
         return "form/propertyForm";
     }
 
