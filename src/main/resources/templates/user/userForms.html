@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>User Forms</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <h1>Forms for user <span th:text="${user.username}"></span> </h1>
+
+    <div th:if="${formList.isEmpty()}">
+        <p>No forms found for this user.</p>
+    </div>
+
+    <div th:unless="${formList.isEmpty()}">
+        <div class="table-wrapper">
+            <div class="scrollable-table-container">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>Form ID</th>
+                        <th>Form Address</th>
+                        <th>Form Date</th>
+                        <th>Form Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="form : ${formList}">
+                        <td th:text="${form.id}"></td>
+                        <td th:text="${form.address}"></td>
+                        <td th:text="${form.date}"></td>
+                        <td th:text="${form.status}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

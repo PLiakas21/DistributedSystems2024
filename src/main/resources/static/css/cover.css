@@ -113,3 +113,52 @@ body {
 .mastfoot {
     color: rgba(255, 255, 255, .5);
 }
+
+/* Outer wrapper to keep everything centered */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Enables horizontal scrolling */
+    display: flex;
+    justify-content: center;
+}
+
+/* Inner container that makes the table wider */
+.scrollable-table-container {
+    max-height: 600px; /* Limits vertical height */
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    min-width: 1000px; /* Makes the table wider */
+    width: 90vw; /* Adjusts dynamically to screen width */
+    max-width: 1500px; /* Prevents excessive stretching */
+}
+
+/* Ensures the table fills the container */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #0f2b49;
+    z-index: 1;
+    color: white;
+}
+
+/* Table Borders */
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #dee2e6;
+    padding: 8px;
+    text-align: left;
+}
+
+/* Hover effect */
+.table-hover tbody tr:hover {
+    background-color: #427db9;
+    color: white;
+}
+
