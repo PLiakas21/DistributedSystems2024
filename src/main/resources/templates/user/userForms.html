@@ -9,7 +9,7 @@
 </head>
 <body>
 <div layout:fragment="main-content">
-    <h1>Forms for user <span th:text="${user.username}"></span> </h1>
+    <h1>Forms for user <span th:text="${user.getUsername()}"></span> </h1>
 
     <div th:if="${formList.isEmpty()}">
         <p>No forms found for this user.</p>

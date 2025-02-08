@@ -15,9 +15,11 @@ import java.time.format.DateTimeFormatter;
 public class PropertyFormService {
 
     private final PropertyFormRepository propertyFormRepository;
+    private final UserService userService;
 
-    public PropertyFormService(PropertyFormRepository propertyFormRepository) {
+    public PropertyFormService(PropertyFormRepository propertyFormRepository, UserService userService) {
         this.propertyFormRepository = propertyFormRepository;
+        this.userService = userService;
     }
 
     @Transactional
@@ -40,12 +42,14 @@ public class PropertyFormService {
         String formattedDate = now.format(formatter);
 
         propertyForm.setDate(formattedDate);
-        user.addForm(propertyForm);
         propertyFormRepository.save(propertyForm);
+        userService.addForm(user, propertyForm);
     }
 
     @Transactional
     public void deletePropertyForm(Integer id) {
+        PropertyForm propertyForm = propertyFormRepository.findById(id).orElseThrow(() -> new RuntimeException("Property form not found"));
+        propertyForm.getUser().removeForm(propertyForm);
         propertyFormRepository.deleteById(id);
     }
 }

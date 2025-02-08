@@ -1,5 +1,6 @@
 package gr.hua.dit.ds.DistributedSystems.service;
 
+import gr.hua.dit.ds.DistributedSystems.entities.Form;
 import gr.hua.dit.ds.DistributedSystems.entities.Role;
 import gr.hua.dit.ds.DistributedSystems.entities.User;
 import gr.hua.dit.ds.DistributedSystems.repositories.UserRepository;
@@ -70,6 +71,12 @@ public class UserService implements UserDetailsService {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         Role userRole = roleRepository.findByName(role).orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         user.addRole(userRole);
+    }
+
+    @Transactional
+    public void addForm(User user, Form form){
+        user.addForm(form);
+        userRepository.updateOrSave(user);
     }
 
     @Transactional

@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -57,7 +56,7 @@ public class User implements UserDetails {
     @Pattern(regexp="(^$|[0-9]{10})", message = "Phone number must contain only digits")
     private String phone;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade= {CascadeType.ALL})
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE}, orphanRemoval = true)
     private Set<Form> formList;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -177,7 +176,11 @@ public class User implements UserDetails {
 
     public void addForm(Form form) {formList.add(form);}
 
+    public void removeForm(Form form) {formList.remove(form);}
+
     public void addRole(Role role) {roles.add(role);}
+
+    public void removeRole(Role role) {roles.remove(role);}
 
     public void updateUser(User user) {
         this.username = user.getUsername();
