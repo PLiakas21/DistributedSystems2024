@@ -8,8 +8,15 @@
     <title>Home</title>
 </head>
 <body>
-<div layout:fragment="main-content">
-    <h1>I hate frontend</h1>
+<div layout:fragment="main-content" class="text-center">
+    <h1>Welcome to Property Rental Management System</h1>
+    <div th:if="${showRoleSelection}">
+        <h2>Select your role:</h2>
+        <div>
+            <a th:href="@{'/user/addRole/' + ${currentUser.id} + '/ROLE_LANDLORD'}" class="btn btn-primary">LANDLORD</a>
+            <a th:href="@{'/user/addRole' + ${currentUser.id} + '/ROLE_TENANT'} " class="btn btn-primary">TENANT</a>
+        </div>
+    </div>
 </div>
 </body>
 </html>

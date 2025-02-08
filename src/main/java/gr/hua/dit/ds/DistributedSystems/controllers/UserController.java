@@ -4,6 +4,7 @@ import gr.hua.dit.ds.DistributedSystems.entities.Role;
 import gr.hua.dit.ds.DistributedSystems.entities.User;
 import gr.hua.dit.ds.DistributedSystems.service.UserService;
 import jakarta.annotation.PostConstruct;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,15 @@ public class UserController {
         String message = "Role added successfully";
         model.addAttribute("msg", message);
         return "user/user";
+    }
+
+    @GetMapping("/selectRole")
+    public String selectRole(Model model, Authentication authentication) {
+        String username = authentication.getName();
+        User currentUser= userService.getUserByUsername(username);
+        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("showRoleSelection", true);
+        return "home";
     }
 
     @GetMapping("/list")
