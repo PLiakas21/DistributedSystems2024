@@ -40,6 +40,7 @@ public class PropertyFormService {
         String formattedDate = now.format(formatter);
 
         propertyForm.setDate(formattedDate);
+        user.addForm(propertyForm);
         propertyFormRepository.save(propertyForm);
     }
 

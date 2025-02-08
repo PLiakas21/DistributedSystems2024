@@ -22,11 +22,6 @@ public class PropertyFormController {
         this.userService = userService;
     }
 
-    @GetMapping
-    public String redirectToList() {
-        return "redirect:form/propertyForm/list";
-    }
-
     // List the Property Forms
     @GetMapping("/list")
     public String listPropertyForms(Model model) {
@@ -38,7 +33,7 @@ public class PropertyFormController {
     public String showPropertyFormDetail(@PathVariable("id") Integer id, Model model) {
         PropertyForm propertyForm = propertyFormService.getPropertyForm(id);
         if (propertyForm == null) {
-            return "redirect:form/propertyForm/list";
+            return "form/propertyForm";
         }
         model.addAttribute("propertyForm", propertyForm);
         return "form/propertyFormDetail";
@@ -51,17 +46,14 @@ public class PropertyFormController {
     }
 
     @PostMapping("/save")
-    public String savePropertyForm(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute PropertyForm propertyForm, Model model) {
-        propertyFormService.savePropertyForm(userService.getUserByUsername(userDetails.getUsername()), propertyForm);
-        model.addAttribute("propertyForms", propertyFormService.getPropertyForms());
-        return "redirect:form/propertyForm/list";
+    public String savePropertyForm(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute PropertyForm propertyForm) {
+        propertyFormService.savePropertyForm((User) userService.loadUserByUsername(userDetails.getUsername()), propertyForm);
+        return "form/propertyForm";
     }
 
     @GetMapping("/delete/{id}")
-    public String deletePropertyForm(@PathVariable Integer id, Model model) {
+    public String deletePropertyForm(@PathVariable Integer id) {
         propertyFormService.deletePropertyForm(id);
-        model.addAttribute("propertyForms", propertyFormService.getPropertyForms());
-        return "redirect:form/propertyForm/list";
+        return "form/propertyForm";
     }
-
 }
