@@ -5,7 +5,6 @@ import gr.hua.dit.ds.DistributedSystems.entities.User;
 import gr.hua.dit.ds.DistributedSystems.repositories.UserRepository;
 import gr.hua.dit.ds.DistributedSystems.repositories.RoleRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,7 +15,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -63,24 +61,8 @@ public class UserService implements UserDetailsService {
         if(opt.isEmpty())
             throw new UsernameNotFoundException("User with username: " + username + " not found !");
         else {
-            User user = opt.get();
-            return new org.springframework.security.core.userdetails.User(
-                    user.getUsername(),
-                    user.getPassword(),
-                    user.getRoles()
-                            .stream()
-                            .map(role-> new SimpleGrantedAuthority(role.toString()))
-                            .collect(Collectors.toSet())
-            );
+            return opt.get();
         }
-    }
-
-    @Transactional
-    public User getUserByUsername(String username) {
-        Optional<User> opt = userRepository.findByUsername(username);
-        if (opt.isEmpty())
-            throw new UsernameNotFoundException("User with username: " + username + " not found !");
-        return opt.get();
     }
 
     @Transactional
