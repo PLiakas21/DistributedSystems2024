@@ -52,4 +52,10 @@ public class PropertyFormService {
         propertyForm.getUser().removeForm(propertyForm);
         propertyFormRepository.deleteById(id);
     }
+
+    @Transactional
+    public void approvePropertyForm(Integer id) {
+        PropertyForm propertyForm = propertyFormRepository.findById(id).orElseThrow(() -> new RuntimeException("Property form not found"));
+        propertyForm.setStatus(true);
+    }
 }

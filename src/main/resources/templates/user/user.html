@@ -28,7 +28,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user : ${users}" th:if="${user.roles.size() == 1 and user.roles[0].name == 'ROLE_USER'}">
+        <tr th:each="user : ${users}" th:if="${user.roles.?[name == 'ROLE_LANDLORD'].size() > 0}">
           <td th:text="${user.id}"></td>
           <td th:text="${user.username}"></td>
           <td th:text="${user.name}"></td>
@@ -36,7 +36,6 @@
           <td th:text="${user.email}"></td>
           <td th:text="${user.phone}"></td>
           <td>
-            <a th:href="@{'/user/addRole/' + ${user.id} + ${'/'} + ${'ROLE_LANDLORD'} }" class="btn btn-primary">Approve as Landlord</a>
             <a th:href="@{'/user/viewForms/' + ${user.id}}" class="btn btn-primary">View Property Forms</a>
             <a th:href="@{'/user/delete/' + ${user.id}}" class="btn btn-danger">Delete</a>
           </td>

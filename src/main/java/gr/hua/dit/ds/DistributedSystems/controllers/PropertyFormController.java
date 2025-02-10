@@ -5,7 +5,6 @@ import gr.hua.dit.ds.DistributedSystems.entities.User;
 import gr.hua.dit.ds.DistributedSystems.service.PropertyFormService;
 import gr.hua.dit.ds.DistributedSystems.service.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -52,8 +51,17 @@ public class PropertyFormController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deletePropertyForm(@PathVariable Integer id) {
+    public String deletePropertyForm(@PathVariable Integer id, Model model) {
+        Integer userId = propertyFormService.getPropertyForm(id).getUser().getId();
         propertyFormService.deletePropertyForm(id);
-        return "form/propertyForm";
+        model.addAttribute("msg", "Form deleted");
+        return "forward:/user/viewForms/" + userId;
+    }
+
+    @GetMapping("approveProperty/{id}")
+    public String approvePropertyForm(@PathVariable("id") Integer id, Model model) {
+        propertyFormService.approvePropertyForm(id);
+        model.addAttribute("msg", "Property approved");
+        return "forward:/user/viewForms/" + propertyFormService.getPropertyForm(id).getUser().getId();
     }
 }

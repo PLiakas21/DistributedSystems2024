@@ -11,6 +11,8 @@
 <div layout:fragment="main-content">
     <h1>Forms for user <span th:text="${user.getUsername()}"></span> </h1>
 
+    <div th:if="${msg}" class="alert alert-success" th:text="${msg}"></div>
+
     <div th:if="${formList.isEmpty()}">
         <p>No forms found for this user.</p>
     </div>
@@ -25,6 +27,7 @@
                         <th>Form Address</th>
                         <th>Form Date</th>
                         <th>Form Status</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -33,7 +36,22 @@
                         <td th:text="${form.address}"></td>
                         <td th:text="${form.date}"></td>
                         <td th:text="${form.status}"></td>
+                        <td>
+                            <!-- Approve button (visible only for ROLE_ADMIN) -->
+                            <form th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
+                                  th:action="@{'/propertyForm/approveProperty/' + ${form.id}}" style="display: inline;">
+                                <button type="submit" class="btn btn-success" th:disabled="${form.status}">
+                                    Approve
+                                </button>
+                            </form>
+
+                            <!-- Delete button -->
+                            <form th:action="@{'/propertyForm/delete/' + ${form.id}}" style="display: inline; margin-left: 5px;">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
                     </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
