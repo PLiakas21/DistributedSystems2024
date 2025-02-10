@@ -35,17 +35,16 @@
                         <td th:text="${form.id}"></td>
                         <td th:text="${form.address}"></td>
                         <td th:text="${form.date}"></td>
-                        <td th:text="${form.status}"></td>
                         <td>
-                            <!-- Approve button (visible only for ROLE_ADMIN) -->
+                            <span th:text="${form.status} ? 'APPROVED' : 'PENDING'"></span>
+                        </td>
+                        <td>
                             <form th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
                                   th:action="@{'/propertyForm/approveProperty/' + ${form.id}}" style="display: inline;">
                                 <button type="submit" class="btn btn-success" th:disabled="${form.status}">
                                     Approve
                                 </button>
                             </form>
-
-                            <!-- Delete button -->
                             <form th:action="@{'/propertyForm/delete/' + ${form.id}}" style="display: inline; margin-left: 5px;">
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
