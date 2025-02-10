@@ -113,7 +113,6 @@ body {
 .mastfoot {
     color: rgba(255, 255, 255, .5);
 }
-
 /* Outer wrapper to keep everything centered */
 .table-wrapper {
     width: 100%;
@@ -140,20 +139,24 @@ body {
     border-collapse: collapse;
 }
 
+/* Sticky header with centered text */
 .table thead th {
     position: sticky;
     top: 0;
     background-color: #0f2b49;
     z-index: 1;
     color: white;
+    text-align: center; /* Center text horizontally */
+    vertical-align: middle; /* Center text vertically */
 }
 
-/* Table Borders */
+/* Table Borders with centered content */
 .table-bordered th,
 .table-bordered td {
     border: 1px solid #dee2e6;
     padding: 8px;
-    text-align: left;
+    text-align: center; /* Center text horizontally */
+    vertical-align: middle; /* Center text vertically */
 }
 
 /* Hover effect */
@@ -161,4 +164,3 @@ body {
     background-color: #427db9;
     color: white;
 }
-
