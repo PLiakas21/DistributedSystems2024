@@ -12,8 +12,7 @@
     <div class="inner">
         <nav class="nav nav-masthead justify-content-center">
             <a class="nav-link" href="/" data-path="/" >Main Page</a>
-            <a sec:authorize="hasRole('ROLE_LANDLORD') || hasRole('ROLE_ADMIN')" class="nav-link" href="/propertyForm/list">Property Forms</a>
-            <a sec:authorize="hasRole('ROLE_TENANT') || hasRole('ROLE_ADMIN')" class="nav-link" href="/rentalForm/list">Rental Forms</a>
+            <a sec:authorize="hasRole('ROLE_LANDLORD') || hasRole('ROLE_ADMIN')" class="nav-link" href="/propertyForm/list">Properties</a>
             <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/user/list">Landlord Applications</a>
             <a sec:authorize="hasRole('ROLE_USER')" class="nav-link" href="/user/myForms">My Forms</a>
         </nav>
