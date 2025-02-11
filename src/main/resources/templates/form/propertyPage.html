@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Property Forms</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <h1>Property Forms</h1>
+    <a th:href="@{'/propertyForm/create'}" class="btn btn-success">Create New Property Form</a>
+
+    <div th:if="${propertyForms.isEmpty()}">
+        <p>No forms found.</p>
+    </div>
+
+    <div th:unless="${propertyForms.isEmpty()}">
+        <div class="table-wrapper">
+            <div class="scrollable-table-container">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User</th>
+                        <th>Date</th>
+                        <th>Address</th>
+                        <th>Rent Price</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="form : ${propertyForms}">
+                        <td th:text="${form.id}"></td>
+                        <td th:text="${form.user.username}"></td>
+                        <td th:text="${form.date}"></td>
+                        <td th:text="${form.address}"></td>
+                        <td th:text="${form.rentPrice}"></td>
+                        <td>
+                            <!-- Actions column (empty for now) -->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

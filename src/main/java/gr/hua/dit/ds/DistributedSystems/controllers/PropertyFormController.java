@@ -25,26 +25,26 @@ public class PropertyFormController {
     @GetMapping("/list")
     public String listPropertyForms(Model model) {
         model.addAttribute("propertyForms", propertyFormService.getPropertyForms());
-        return "form/propertyForm";
+        return "form/propertyPage";
     }
 
     @GetMapping("/{id}")
     public String showPropertyFormDetail(@PathVariable("id") Integer id, Model model) {
         PropertyForm propertyForm = propertyFormService.getPropertyForm(id);
         model.addAttribute("propertyForm", propertyForm);
-        return "form/propertyFormDetail";
+        return "form/propertyFormDetails";
     }
 
     @GetMapping("/create")
     public String createPropertyForm(Model model) {
         model.addAttribute("propertyForm", new PropertyForm());
-        return "form/propertyForm";
+        return "form/propertyPage";
     }
 
     @PostMapping("/save")
     public String savePropertyForm(@AuthenticationPrincipal User user, @ModelAttribute PropertyForm propertyForm) {
         propertyFormService.savePropertyForm(user, propertyForm);
-        return "form/propertyForm";
+        return "form/propertyPage";
     }
 
     @GetMapping("/delete/{id}")

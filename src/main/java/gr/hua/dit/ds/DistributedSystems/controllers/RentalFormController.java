@@ -27,7 +27,7 @@ public class RentalFormController {
     public String showRentalFormDetails(@PathVariable("id") Integer id, Model model) {
         RentalForm rentalForm = rentalFormService.getRentalForm(id);
         model.addAttribute("rentalForm", rentalForm);
-        return "form/rentalFormDetail";
+        return "form/rentalFormDetails";
     }
 
 
