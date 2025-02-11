@@ -31,9 +31,6 @@ public class PropertyFormController {
     @GetMapping("/{id}")
     public String showPropertyFormDetail(@PathVariable("id") Integer id, Model model) {
         PropertyForm propertyForm = propertyFormService.getPropertyForm(id);
-        if (propertyForm == null) {
-            return "form/propertyForm";
-        }
         model.addAttribute("propertyForm", propertyForm);
         return "form/propertyFormDetail";
     }
@@ -63,5 +60,12 @@ public class PropertyFormController {
         propertyFormService.approvePropertyForm(id);
         model.addAttribute("msg", "Property approved");
         return "forward:/user/viewForms/" + propertyFormService.getPropertyForm(id).getUser().getId();
+    }
+
+    @GetMapping("switchRentalStatus/{id}/{status}")
+    public String switchRentalStatus(@PathVariable Integer id, @PathVariable Boolean status ,Model model) {
+        propertyFormService.changeRentStatus(id, status);
+        model.addAttribute("msg", "Rental Status changed");
+        return "forward:/propertyForm/" + id;
     }
 }

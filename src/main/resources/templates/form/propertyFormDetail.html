@@ -24,11 +24,32 @@
                     <span th:if="${propertyForm.openForRenting}" class="text-success">Available</span>
                     <span th:if="${!propertyForm.openForRenting}" class="text-danger">Not Available</span>
                 </p>
+
+                <!-- Display User Information -->
+                <div class="mt-4">
+                    <div class="user-info-header">
+                        <h4>User Information</h4>
+                    </div>
+                    <div class="user-info-content">
+                        <p><strong>Username:</strong> <span th:text="${propertyForm.user.username}"></span></p>
+                        <p><strong>Name:</strong> <span th:text="${propertyForm.user.name}"></span></p>
+                        <p><strong>Surname:</strong> <span th:text="${propertyForm.user.surname}"></span></p>
+                        <p><strong>Email:</strong> <span th:text="${propertyForm.user.email}"></span></p>
+                        <p><strong>Phone:</strong> <span th:text="${propertyForm.user.phone}"></span></p>
+                    </div>
+                </div>
             </div>
             <div class="card-footer">
-                <button type="button" class="btn btn-outline-primary"
-                        th:if="${propertyForm.openForRenting}"
-                        th:href="@{'/rentalForm/create'}">Apply for Renting</button>
+                <!-- Apply for Renting button (visible only to TENANT) -->
+                <a th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}"
+                   th:href="@{'/rentalForm/create'}" class="btn btn-outline-primary">Apply for Renting</a>
+
+                <!-- Toggle Rental Status button (visible only to LANDLORD) -->
+                <a th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}"
+                   th:href="@{'/propertyForm/switchRentalStatus/' + ${propertyForm.id} + '/' + ${!propertyForm.openForRenting}}"
+                   class="btn btn-warning">
+                    <span th:text="${propertyForm.openForRenting} ? 'Close Renting' : 'Open Renting'"></span>
+                </a>
             </div>
         </div>
     </div>

@@ -17,16 +17,10 @@ public class RentalFormController {
         this.rentalFormService = rentalFormService;
     }
 
-    @GetMapping
-    public String redirectToList() {
-        return "redirect:form/rentalForm/list";
-    }
-
-    // List the Rental Forms
     @GetMapping("/list")
     public String listRentalForms(Model model) {
         model.addAttribute("rentalForms", rentalFormService.getRentalForms());
-        return "form/rentalForm";
+        return "";
     }
 
     @GetMapping("/{id}")
@@ -42,7 +36,7 @@ public class RentalFormController {
     public String createRentalForm(Model model) {
         model.addAttribute("rentalForms", rentalFormService.getRentalForms());
         model.addAttribute("rentalForm", new RentalForm());
-        return "form/rentalForm";
+        return "";
     }
 
     // Save Rental Form to the database
@@ -50,7 +44,7 @@ public class RentalFormController {
     public String saveRentalForm(@ModelAttribute RentalForm rentalForm, Model model) {
         rentalFormService.saveRentalForm(rentalForm);
         model.addAttribute("rentalForms", rentalFormService.getRentalForms());
-        return "redirect:form/rentalForm/list";
+        return "";
     }
 
     // Delete a Rental Form
@@ -58,7 +52,7 @@ public class RentalFormController {
     public String deleteRentalForm(@PathVariable Integer id, Model model) {
         rentalFormService.deleteRentalForm(id);
         model.addAttribute("rentalForms", rentalFormService.getRentalForms());
-        return "redirect:form/rentalForm/list";
+        return "";
     }
 
     @GetMapping("/accept/{id}")
@@ -68,11 +62,11 @@ public class RentalFormController {
             rentalForm.setStatus(true);
             rentalFormService.saveRentalForm(rentalForm);
         }
-        return "redirect:/rentalForm/details/" + id;
+        return "" + id;
     }
     @GetMapping("/reject/{id}")
     public String rejectRentalForm(@PathVariable("id") Integer id, Model model) {
         rentalFormService.deleteRentalForm(id);
-        return "redirect:/rentalForm/list";
+        return "";
     }
 }

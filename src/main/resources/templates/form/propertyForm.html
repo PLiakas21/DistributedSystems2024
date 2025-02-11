@@ -28,10 +28,6 @@
             <td th:text="${form.date}"></td>
             <td th:text="${form.address}"></td>
             <td th:text="${form.rentPrice}"></td>
-            <td>
-                <a th:href="@{'/propertyForm/edit/' + ${form.id}}">Edit</a>
-                <a th:href="@{'/propertyForm/delete/' + ${form.id}}">Delete</a>
-            </td>
         </tr>
         </tbody>
     </table>

@@ -13,6 +13,10 @@
 
     <div th:if="${msg}" class="alert alert-success" th:text="${msg}"></div>
 
+    <div th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
+        <a th:href="@{/propertyForm/create}" class="btn btn-primary">Create New Property Form</a>
+    </div>
+
     <div th:if="${formList.isEmpty()}">
         <p>No forms found for this user.</p>
     </div>
@@ -39,11 +43,14 @@
                             <span th:text="${form.status} ? 'APPROVED' : 'PENDING'"></span>
                         </td>
                         <td>
+                            <a th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}"
+                               th:href="@{'/propertyForm/' + ${form.id}}" class="btn btn-info">Form Details</a>
+                            <a th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}"
+                               th:href="@{'/rentalForm/' + ${form.id}}" class="btn btn-info">Form Details</a>
+
                             <form th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
                                   th:action="@{'/propertyForm/approveProperty/' + ${form.id}}" style="display: inline;">
-                                <button type="submit" class="btn btn-success" th:disabled="${form.status}">
-                                    Approve
-                                </button>
+                                <button type="submit" class="btn btn-success" th:disabled="${form.status}">Approve</button>
                             </form>
                             <form th:action="@{'/propertyForm/delete/' + ${form.id}}" style="display: inline; margin-left: 5px;">
                                 <button type="submit" class="btn btn-danger">Delete</button>

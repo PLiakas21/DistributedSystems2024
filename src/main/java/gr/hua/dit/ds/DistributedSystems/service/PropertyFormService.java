@@ -58,4 +58,10 @@ public class PropertyFormService {
         PropertyForm propertyForm = propertyFormRepository.findById(id).orElseThrow(() -> new RuntimeException("Property form not found"));
         propertyForm.setStatus(true);
     }
+
+    @Transactional
+    public void changeRentStatus(Integer id, boolean status) {
+        PropertyForm propertyForm = propertyFormRepository.findById(id).orElseThrow(() -> new RuntimeException("Property form not found"));
+        propertyForm.setOpenForRenting(status);
+    }
 }
