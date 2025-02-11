@@ -2,6 +2,7 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
       layout:decorate="~{page_layout/layout}" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +14,7 @@
 
     <div th:if="${msg}" class="alert alert-success" th:text="${msg}"></div>
 
-    <div th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
+    <div sec:authorize="hasRole('ROLE_LANDLORD')">
         <a th:href="@{/propertyForm/create}" class="btn btn-primary">Create New Property Form</a>
     </div>
 
@@ -48,7 +49,7 @@
                             <a th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}"
                                th:href="@{'/rentalForm/' + ${form.id}}" class="btn btn-info">Form Details</a>
 
-                            <form th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
+                            <form sec:authorize="hasRole('ROLE_ADMIN')"
                                   th:action="@{'/propertyForm/approveProperty/' + ${form.id}}" style="display: inline;">
                                 <button type="submit" class="btn btn-success" th:disabled="${form.status}">Approve</button>
                             </form>
