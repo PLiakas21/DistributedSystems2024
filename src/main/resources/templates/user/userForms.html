@@ -14,7 +14,7 @@
 
     <div th:if="${msg}" class="alert alert-success" th:text="${msg}"></div>
 
-    <div sec:authorize="hasRole('ROLE_LANDLORD')">
+    <div sec:authorize="hasRole('ROLE_LANDLORD') or hasRole('ROLE_ADMIN')">
         <a th:href="@{/propertyForm/create}" class="btn btn-primary">Create New Property Form</a>
     </div>
 
@@ -52,7 +52,7 @@
                               th:action="@{'/propertyForm/approveProperty/' + ${form.id}}" style="display: inline;">
                             <button type="submit" class="btn btn-success" th:disabled="${form.approved}">Approve</button>
                         </form>
-                        <form th:action="@{'/propertyForm/delete/' + ${form.id}}"
+                        <form th:action="@{'/form/delete/' + ${form.id}}"
                               style="display: inline; margin-left: 5px;">
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>

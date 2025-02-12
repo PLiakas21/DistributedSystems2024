@@ -54,9 +54,4 @@ public class RentalFormService {
         rentalFormRepository.save(rentalForm);
         userService.addForm(user, rentalForm);
     }
-
-    @Transactional
-    public void deleteRentalForm(Integer id) {
-        rentalFormRepository.deleteById(id);
-    }
 }

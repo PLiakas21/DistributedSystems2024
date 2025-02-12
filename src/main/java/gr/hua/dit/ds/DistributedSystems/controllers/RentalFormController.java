@@ -40,22 +40,9 @@ public class RentalFormController {
         return "forward:/propertyForm/" + id;
     }
 
-    // Delete a Rental Form
-    @GetMapping("/delete/{id}")
-    public String deleteRentalForm(@PathVariable Integer id, Model model) {
-        rentalFormService.deleteRentalForm(id);
-        model.addAttribute("rentalForms", rentalFormService.getRentalForms());
-        return "";
-    }
-
     @GetMapping("/accept/{id}")
     public String acceptRentalForm(@PathVariable("id") Integer id, Model model) {
         RentalForm rentalForm = rentalFormService.getRentalForm(id);
         return "" + id;
-    }
-    @GetMapping("/reject/{id}")
-    public String rejectRentalForm(@PathVariable("id") Integer id, Model model) {
-        rentalFormService.deleteRentalForm(id);
-        return "";
     }
 }

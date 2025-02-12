@@ -14,7 +14,7 @@
             <a class="nav-link" href="/" data-path="/" >Main Page</a>
             <a sec:authorize="hasRole('ROLE_USER')" class="nav-link" href="/propertyForm/list">Properties</a>
             <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/user/list">Landlord Applications</a>
-            <a sec:authorize="hasRole('ROLE_LANDLORD') || hasRole('ROLE_TENANT')" class="nav-link" href="/user/myForms">My Forms</a>
+            <a sec:authorize="hasRole('ROLE_LANDLORD') or hasRole('ROLE_TENANT') or hasRole('ROLE_ADMIN')" class="nav-link" href="/user/myForms">My Forms</a>
         </nav>
     </div>
     <div class="auth-buttons">
