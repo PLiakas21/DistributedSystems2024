@@ -113,13 +113,6 @@ body {
 .mastfoot {
     color: rgba(255, 255, 255, .5);
 }
-/* Outer wrapper to keep everything centered */
-.table-wrapper {
-    width: 100%;
-    overflow-x: auto; /* Enables horizontal scrolling */
-    display: flex;
-    justify-content: center;
-}
 
 /* Table Container Styling */
 .scrollable-table-container {

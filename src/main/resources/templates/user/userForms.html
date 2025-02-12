@@ -10,7 +10,7 @@
 </head>
 <body>
 <div layout:fragment="main-content">
-    <h1>Forms for user <span th:text="${user.getUsername()}"></span> </h1>
+    <h1>Forms for user <span th:text="${user.getUsername()}"></span></h1>
 
     <div th:if="${msg}" class="alert alert-success" th:text="${msg}"></div>
 
@@ -23,44 +23,43 @@
     </div>
 
     <div th:unless="${formList.isEmpty()}">
-        <div class="table-wrapper">
-            <div class="scrollable-table-container">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th>Form ID</th>
-                        <th>Form Address</th>
-                        <th>Form Date</th>
-                        <th>Form Status</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="form : ${formList}">
-                        <td th:text="${form.id}"></td>
-                        <td th:text="${form.address}"></td>
-                        <td th:text="${form.date}"></td>
-                        <td>
-                            <span th:text="${form.status} ? 'APPROVED' : 'PENDING'"></span>
-                        </td>
-                        <td>
-                            <a th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}"
-                               th:href="@{'/propertyForm/' + ${form.id}}" class="btn btn-info">Form Details</a>
-                            <a th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}"
-                               th:href="@{'/rentalForm/' + ${form.id}}" class="btn btn-info">Form Details</a>
+        <div class="scrollable-table-container">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Form ID</th>
+                    <th>Form Address</th>
+                    <th>Form Date</th>
+                    <th>Form Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="form : ${formList}">
+                    <td th:text="${form.id}"></td>
+                    <td th:text="${form.address}"></td>
+                    <td th:text="${form.date}"></td>
+                    <td>
+                        <span th:text="${form.status} ? 'APPROVED' : 'PENDING'"></span>
+                    </td>
+                    <td>
+                        <a th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}"
+                           th:href="@{'/propertyForm/' + ${form.id}}" class="btn btn-info">Form Details</a>
+                        <a th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}"
+                           th:href="@{'/rentalForm/' + ${form.id}}" class="btn btn-info">Form Details</a>
 
-                            <form sec:authorize="hasRole('ROLE_ADMIN')"
-                                  th:action="@{'/propertyForm/approveProperty/' + ${form.id}}" style="display: inline;">
-                                <button type="submit" class="btn btn-success" th:disabled="${form.status}">Approve</button>
-                            </form>
-                            <form th:action="@{'/propertyForm/delete/' + ${form.id}}" style="display: inline; margin-left: 5px;">
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                        <form sec:authorize="hasRole('ROLE_ADMIN')"
+                              th:action="@{'/propertyForm/approveProperty/' + ${form.id}}" style="display: inline;">
+                            <button type="submit" class="btn btn-success" th:disabled="${form.status}">Approve</button>
+                        </form>
+                        <form th:action="@{'/propertyForm/delete/' + ${form.id}}"
+                              style="display: inline; margin-left: 5px;">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
