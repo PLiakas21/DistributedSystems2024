@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>New Property Form</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">New Property Form</h2>
+            </div>
+            <div class="card-body">
+                <!-- Form for adding a new property -->
+                <form th:action="@{/propertyForm/save}" method="post">
+                    <!-- Address Input -->
+                    <div class="mb-3">
+                        <label for="address" class="form-label"><strong>Property Address</strong></label>
+                        <input type="text" class="form-control" id="address" name="address" required>
+                    </div>
+
+                    <!-- Rent Price Input -->
+                    <div class="mb-3">
+                        <label for="rentPrice" class="form-label"><strong>Rent Price (€)s</strong></label>
+                        <input type="number" class="form-control" id="rentPrice" name="rentPrice" step="0.01" required>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-warning">Submit Property</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

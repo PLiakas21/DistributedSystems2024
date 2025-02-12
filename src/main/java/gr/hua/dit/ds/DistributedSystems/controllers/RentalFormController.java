@@ -1,7 +1,9 @@
 package gr.hua.dit.ds.DistributedSystems.controllers;
 
 import gr.hua.dit.ds.DistributedSystems.entities.RentalForm;
+import gr.hua.dit.ds.DistributedSystems.entities.User;
 import gr.hua.dit.ds.DistributedSystems.service.RentalFormService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,19 +34,10 @@ public class RentalFormController {
 
 
     // Create a new Rental Form
-    @GetMapping("/create")
-    public String createRentalForm(Model model) {
-        model.addAttribute("rentalForms", rentalFormService.getRentalForms());
-        model.addAttribute("rentalForm", new RentalForm());
-        return "";
-    }
-
-    // Save Rental Form to the database
-    @PostMapping("/save")
-    public String saveRentalForm(@ModelAttribute RentalForm rentalForm, Model model) {
-        rentalFormService.saveRentalForm(rentalForm);
-        model.addAttribute("rentalForms", rentalFormService.getRentalForms());
-        return "";
+    @GetMapping("/create/{id}")
+    public String applyForRental(@PathVariable Integer id, @AuthenticationPrincipal User user, Model model) {
+        rentalFormService.saveRentalForm(user, id);
+        return "forward:/propertyForm/" + id;
     }
 
     // Delete a Rental Form
@@ -58,10 +51,6 @@ public class RentalFormController {
     @GetMapping("/accept/{id}")
     public String acceptRentalForm(@PathVariable("id") Integer id, Model model) {
         RentalForm rentalForm = rentalFormService.getRentalForm(id);
-        if (rentalForm != null) {
-            rentalForm.setStatus(true);
-            rentalFormService.saveRentalForm(rentalForm);
-        }
         return "" + id;
     }
     @GetMapping("/reject/{id}")

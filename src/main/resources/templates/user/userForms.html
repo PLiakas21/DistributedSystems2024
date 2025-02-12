@@ -40,7 +40,7 @@
                     <td th:text="${form.address}"></td>
                     <td th:text="${form.date}"></td>
                     <td>
-                        <span th:text="${form.status} ? 'APPROVED' : 'PENDING'"></span>
+                        <span th:text="${form.approved} ? 'APPROVED' : 'PENDING'"></span>
                     </td>
                     <td>
                         <a th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}"
@@ -50,7 +50,7 @@
 
                         <form sec:authorize="hasRole('ROLE_ADMIN')"
                               th:action="@{'/propertyForm/approveProperty/' + ${form.id}}" style="display: inline;">
-                            <button type="submit" class="btn btn-success" th:disabled="${form.status}">Approve</button>
+                            <button type="submit" class="btn btn-success" th:disabled="${form.approved}">Approve</button>
                         </form>
                         <form th:action="@{'/propertyForm/delete/' + ${form.id}}"
                               style="display: inline; margin-left: 5px;">

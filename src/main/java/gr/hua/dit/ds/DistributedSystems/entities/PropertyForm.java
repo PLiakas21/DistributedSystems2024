@@ -51,4 +51,13 @@ public class PropertyForm extends Form {
     public void setRentalFormList(Set<RentalForm> rentalFormList) {
         this.rentalFormList = rentalFormList;
     }
+
+    public boolean hasUserApplication(String username){
+        for (RentalForm rentalForm : rentalFormList) {
+            if(rentalForm.getUser().getUsername().equals(username)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -38,21 +38,20 @@ public class PropertyFormController {
     @GetMapping("/create")
     public String createPropertyForm(Model model) {
         model.addAttribute("propertyForm", new PropertyForm());
-        return "form/propertyPage";
+        return "form/propertyForm";
     }
 
     @PostMapping("/save")
     public String savePropertyForm(@AuthenticationPrincipal User user, @ModelAttribute PropertyForm propertyForm) {
         propertyFormService.savePropertyForm(user, propertyForm);
-        return "form/propertyPage";
+        return "redirect:/user/myForms";
     }
 
     @GetMapping("/delete/{id}")
     public String deletePropertyForm(@PathVariable Integer id, Model model) {
-        Integer userId = propertyFormService.getPropertyForm(id).getUser().getId();
         propertyFormService.deletePropertyForm(id);
         model.addAttribute("msg", "Form deleted");
-        return "forward:/user/viewForms/" + userId;
+        return "forward:/user/myForms";
     }
 
     @GetMapping("approveProperty/{id}")
@@ -67,5 +66,12 @@ public class PropertyFormController {
         propertyFormService.changeRentStatus(id, status);
         model.addAttribute("msg", "Rental Status changed");
         return "forward:/propertyForm/" + id;
+    }
+
+    @GetMapping("listFormApplications/{id}")
+    public String listFormApplications(@PathVariable Integer id, Model model) {
+        PropertyForm propertyForm = propertyFormService.getPropertyForm(id);
+        model.addAttribute("rentalFormList", propertyForm.getRentalFormList());
+        return "form/rentalFormList";
     }
 }

@@ -67,7 +67,7 @@ public class Form {
         this.address = address;
     }
 
-    public boolean isStatus() {
+    public boolean isApproved() {
         return status;
     }
 
