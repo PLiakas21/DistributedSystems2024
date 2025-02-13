@@ -4,7 +4,8 @@ import gr.hua.dit.ds.DistributedSystems.entities.Role;
 import gr.hua.dit.ds.DistributedSystems.entities.User;
 import gr.hua.dit.ds.DistributedSystems.service.UserService;
 import jakarta.annotation.PostConstruct;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,15 +35,6 @@ public class UserController {
         return "user/user";
     }
 
-    @GetMapping("/selectRole")
-    public String selectRole(Model model, Authentication authentication) {
-        String username = authentication.getName();
-        User currentUser= userService.getUserByUsername(username);
-        model.addAttribute("currentUser", currentUser);
-        model.addAttribute("showRoleSelection", true);
-        return "home";
-    }
-
     @GetMapping("/list")
     public String listUsers(Model model) {
         model.addAttribute("users", userService.getUsers());
@@ -50,7 +42,7 @@ public class UserController {
     }
 
     @GetMapping("/get/{id}")
-    public String getUser(@ModelAttribute Integer id, Model model) {
+    public String getUser(@PathVariable Integer id, Model model) {
         model.addAttribute("user", userService.getUser(id));
         return "user/user";
     }
@@ -60,5 +52,21 @@ public class UserController {
         userService.deleteUser(id);
         model.addAttribute("users", userService.getUsers());
         return "redirect:user/user/list";
+    }
+
+    @GetMapping("/viewForms/{id}")
+    public String viewForms(@PathVariable Integer id, Model model) {
+        User user = userService.getUser(id);
+        model.addAttribute("formList", user.getFormList());
+        model.addAttribute("user", user);
+        return "user/userForms";
+    }
+
+    @GetMapping("/myForms")
+    public String myForms(@AuthenticationPrincipal UserDetails  userDetails, Model model) {
+        User user = (User) userService.loadUserByUsername(userDetails.getUsername());
+        model.addAttribute("formList", user.getFormList());
+        model.addAttribute("user", user);
+        return "user/userForms";
     }
 }

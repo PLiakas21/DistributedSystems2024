@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Rental Applications</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <h1>Rental Applications</h1>
+
+    <div th:if="${rentalFormList.isEmpty()}">
+        <p>No forms found.</p>
+    </div>
+
+    <div th:unless="${rentalFormList.isEmpty()}">
+        <div class="scrollable-table-container">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="form : ${rentalFormList}">
+                    <td th:text="${form.user.username}"></td>
+                    <td th:text="${form.date}"></td>
+                    <td th:text="${form.user.name}"></td>
+                    <td th:text="${form.user.surname}"></td>
+                    <td th:text="${form.user.email}"></td>
+                    <td th:text="${form.user.phone}"></td>
+                    <td>
+                        <!-- View Details Button -->
+                        <a th:href="@{'/rentalForm/' + ${form.id}}" class="btn btn-info">View Details</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

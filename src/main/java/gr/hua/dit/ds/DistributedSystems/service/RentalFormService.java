@@ -1,19 +1,27 @@
 package gr.hua.dit.ds.DistributedSystems.service;
 
+import gr.hua.dit.ds.DistributedSystems.entities.PropertyForm;
 import gr.hua.dit.ds.DistributedSystems.entities.RentalForm;
+import gr.hua.dit.ds.DistributedSystems.entities.User;
 import gr.hua.dit.ds.DistributedSystems.repositories.RentalFormRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
 public class RentalFormService {
 
     private final RentalFormRepository rentalFormRepository;
+    private final PropertyFormService propertyFormService;
+    private final UserService userService;
 
-    public RentalFormService(RentalFormRepository rentalFormRepository) {
+    public RentalFormService(RentalFormRepository rentalFormRepository, PropertyFormService propertyFormService, UserService userService) {
         this.rentalFormRepository = rentalFormRepository;
+        this.propertyFormService = propertyFormService;
+        this.userService = userService;
     }
 
     @Transactional
@@ -27,12 +35,23 @@ public class RentalFormService {
     }
 
     @Transactional
-    public void saveRentalForm(RentalForm rentalForm) {
-        rentalFormRepository.save(rentalForm);
-    }
+    public void saveRentalForm(User user, Integer id) {
+        PropertyForm propertyForm = propertyFormService.getPropertyForm(id);
 
-    @Transactional
-    public void deleteRentalForm(Integer id) {
-        rentalFormRepository.deleteById(id);
+        RentalForm rentalForm = new RentalForm();
+        rentalForm.setUser(user);
+        rentalForm.setAddress(propertyForm.getAddress());
+        rentalForm.setStatus(false);
+
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = now.format(formatter);
+
+        rentalForm.setDate(formattedDate);
+
+        propertyForm.getRentalFormList().add(rentalForm);
+
+        rentalFormRepository.save(rentalForm);
+        userService.addForm(user, rentalForm);
     }
 }

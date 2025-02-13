@@ -113,3 +113,144 @@ body {
 .mastfoot {
     color: rgba(255, 255, 255, .5);
 }
+
+/* Table Container Styling */
+.scrollable-table-container {
+    max-height: 600px; /* Limits vertical height */
+    overflow-y: auto;
+    border: 1px solid #b3d9ff; /* Light blue border to match the card */
+    border-radius: 5px; /* Rounded corners to match the card */
+    margin-bottom: 20px;
+    min-width: 1000px; /* Makes the table wider */
+    width: 90vw; /* Adjusts dynamically to screen width */
+    max-width: 1500px; /* Prevents excessive stretching */
+    background-color: #a7ccfc; /* Pale blue background to match the card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow to match the card */
+}
+
+/* Ensures the table fills the container */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Sticky header with centered text */
+.table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #0f2b49; /* Dark blue header background to match the card header */
+    z-index: 1;
+    color: white; /* White text for contrast */
+    text-align: center; /* Center text horizontally */
+    vertical-align: middle; /* Center text vertically */
+    padding: 12px; /* Add padding for better spacing */
+}
+
+/* Table Borders with centered content */
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #b3d9ff; /* Light blue border to match the card */
+    padding: 8px;
+    text-align: center; /* Center text horizontally */
+    vertical-align: middle; /* Center text vertically */
+    color: #333; /* Dark gray text to match the card body text */
+}
+
+/* Strong text in table cells */
+.table-bordered td strong {
+    color: #0f2b49; /* Dark blue for strong text (labels) to match the card */
+}
+
+/* Hover effect */
+.table-hover tbody tr:hover {
+    background-color: #cce5ff; /* Light blue hover effect to match the card */
+    color: #333; /* Dark text for readability */
+}
+
+/* Button Styling inside the Table */
+.table .btn {
+    margin: 2px; /* Add spacing between buttons */
+    padding: 6px 12px; /* Adjust button padding */
+    font-size: 14px; /* Adjust button font size */
+}
+
+
+/* Card Styling */
+.card {
+    background-color: #a7ccfc; /* Pale blue background */
+    border: 1px solid #b3d9ff; /* Light blue border */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth hover effect */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+/* Card Header Styling */
+.card-header {
+    background-color: #0f2b49; /* Blue header background */
+    color: white; /* White text for contrast */
+    border-top-left-radius: 10px; /* Match card's rounded corners */
+    border-top-right-radius: 10px;
+    padding: 15px; /* Add some padding */
+    text-align: center; /* Center the header text */
+}
+
+/* Card Body Styling */
+.card-body {
+    padding: 20px; /* Add padding inside the card */
+}
+
+.card-body p {
+    margin-bottom: 10px; /* Space between paragraphs */
+    font-size: 16px; /* Slightly larger font size */
+    color: #333; /* Dark text for readability */
+}
+
+.card-body strong {
+    color: #0f2b49; /* Blue color for strong text (labels) */
+}
+
+/* Card Footer Styling */
+.card-footer {
+    background-color: #344b77; /* Light gray background for footer */
+    border-bottom-left-radius: 10px; /* Match card's rounded corners */
+    border-bottom-right-radius: 10px;
+    padding: 15px; /* Add padding */
+    text-align: center; /* Align button to the right */
+}
+
+/* Button Styling */
+.btn-outline-primary {
+    border-color: #007bff; /* Blue border for the button */
+    color: #007bff; /* Blue text for the button */
+    transition: background-color 0.2s ease, color 0.2s ease; /* Smooth hover effect */
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff; /* Blue background on hover */
+    color: white; /* White text on hover */
+}
+
+/* User Information Header Styling */
+.user-info-header {
+    background-color: #0f2b49; /* Darker blue for contrast */
+    color: white; /* White text for readability */
+    padding: 10px 15px; /* Add padding */
+    border-radius: 5px; /* Slightly rounded corners */
+    margin-bottom: 15px; /* Space below the header */
+}
+
+/* User Information Content Styling */
+.user-info-content p {
+    margin-bottom: 8px; /* Space between paragraphs */
+    font-size: 16px; /* Slightly larger font size */
+    color: #333; /* Dark text for readability */
+}
+
+.user-info-content strong {
+    color: #0f2b49; /* Darker blue for strong text (labels) */
+}

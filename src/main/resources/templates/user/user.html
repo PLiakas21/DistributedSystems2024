@@ -4,45 +4,44 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{page_layout/layout}">
 <head>
-  <meta charset="UTF-8">
-  <title>Users</title>
+    <meta charset="UTF-8">
+    <title>Landlord Applications</title>
 </head>
 <body>
 <div layout:fragment="main-content">
-  <h1>Users</h1>
+    <h1>Landlord Applications</h1>
 
-  <!-- Display the message if it exists -->
-  <div th:if="${msg}" class="alert alert-success" th:text="${msg}"></div>
+    <div th:if="${msg}" class="alert alert-success" th:text="${msg}"></div>
 
-  <table class="table table-bordered table-hover">
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Username</th>
-      <th>Name</th>
-      <th>Surname</th>
-      <th>Email</th>
-      <th>Phone</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${users}">
-      <td th:text="${user.id}"></td>
-      <td th:text="${user.username}"></td>
-      <td th:text="${user.name}"></td>
-      <td th:text="${user.surname}"></td>
-      <td th:text="${user.email}"></td>
-      <td th:text="${user.phone}"></td>
-      <td>
-        <a th:href="@{'/user/addRole/' + ${user.id} + ${'/'} + ${'ROLE_LANDLORD'} }" class="btn btn-primary">Add Role Landlord</a>
-        <a th:href="@{'/user/addRole/' + ${user.id} + ${'/'} + ${'ROLE_TENANT'} }" class="btn btn-primary">Add Role Tenant</a>
-        <a th:href="@{'/user/addRole/' + ${user.id} + ${'/'} + ${'ROLE_ADMIN'} }" class="btn btn-primary">Add Role Admin</a>
-        <a th:href="@{'/user/delete/' + ${user.id}}" class="btn btn-danger">Delete</a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+    <div class="scrollable-table-container">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}" th:if="${user.roles.?[name == 'ROLE_LANDLORD'].size() > 0}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.surname}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.phone}"></td>
+                <td>
+                    <a th:href="@{'/user/viewForms/' + ${user.id}}" class="btn btn-primary">View Property Forms</a>
+                    <a th:href="@{'/user/delete/' + ${user.id}}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>

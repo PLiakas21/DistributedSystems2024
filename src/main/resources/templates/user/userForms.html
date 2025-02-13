@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="~{page_layout/layout}" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>User Forms</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <h1>Forms for user <span th:text="${user.getUsername()}"></span></h1>
+
+    <div th:if="${msg}" class="alert alert-success" th:text="${msg}"></div>
+
+    <div sec:authorize="hasRole('ROLE_LANDLORD') or hasRole('ROLE_ADMIN')">
+        <a th:href="@{/propertyForm/create}" class="btn btn-primary">Create New Property Form</a>
+    </div>
+
+    <div th:if="${formList.isEmpty()}">
+        <p>No forms found for this user.</p>
+    </div>
+
+    <div th:unless="${formList.isEmpty()}">
+        <div class="scrollable-table-container">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Form ID</th>
+                    <th>Form Address</th>
+                    <th>Form Date</th>
+                    <th>Form Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="form : ${formList}">
+                    <td th:text="${form.id}"></td>
+                    <td th:text="${form.address}"></td>
+                    <td th:text="${form.date}"></td>
+                    <td>
+                        <span th:text="${form.approved} ? 'APPROVED' : 'PENDING'"></span>
+                    </td>
+                    <td>
+                        <a th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}"
+                           th:href="@{'/propertyForm/' + ${form.id}}" class="btn btn-info">Form Details</a>
+                        <a th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}"
+                           th:href="@{'/rentalForm/' + ${form.id}}" class="btn btn-info">Form Details</a>
+
+                        <form sec:authorize="hasRole('ROLE_ADMIN')"
+                              th:action="@{'/propertyForm/approveProperty/' + ${form.id}}" style="display: inline;">
+                            <button type="submit" class="btn btn-success" th:disabled="${form.approved}">Approve</button>
+                        </form>
+                        <form th:action="@{'/form/delete/' + ${form.id}}"
+                              style="display: inline; margin-left: 5px;">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

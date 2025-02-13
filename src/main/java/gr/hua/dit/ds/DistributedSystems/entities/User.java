@@ -5,9 +5,14 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name="app_user",
@@ -16,7 +21,7 @@ import java.util.Set;
                 @UniqueConstraint(columnNames = "email"),
                 @UniqueConstraint(columnNames = "phone")
             })
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,10 +56,10 @@ public class User {
     @Pattern(regexp="(^$|[0-9]{10})", message = "Phone number must contain only digits")
     private String phone;
 
-    @OneToMany(cascade= {CascadeType.ALL})
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE}, orphanRemoval = true)
     private Set<Form> formList;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable( name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -85,6 +90,26 @@ public class User {
         return username;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -103,6 +128,14 @@ public class User {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles
+                .stream()
+                .map(role-> new SimpleGrantedAuthority(role.toString()))
+                .collect(Collectors.toSet());
     }
 
     public String getPassword() {
@@ -143,7 +176,11 @@ public class User {
 
     public void addForm(Form form) {formList.add(form);}
 
+    public void removeForm(Form form) {formList.remove(form);}
+
     public void addRole(Role role) {roles.add(role);}
+
+    public void removeRole(Role role) {roles.remove(role);}
 
     public void updateUser(User user) {
         this.username = user.getUsername();
