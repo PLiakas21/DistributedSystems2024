@@ -35,6 +35,7 @@ public class PropertyFormService {
     @Transactional
     public void savePropertyForm(User user, PropertyForm propertyForm) {
         propertyForm.setUser(user);
+        propertyForm.setStatus(0);
         propertyForm.setOpenForRenting(true);
 
         LocalDateTime now = LocalDateTime.now();
@@ -47,9 +48,9 @@ public class PropertyFormService {
     }
 
     @Transactional
-    public void approvePropertyForm(Integer id) {
+    public void changePropertyFormStatus(Integer id, Integer status) {
         PropertyForm propertyForm = propertyFormRepository.findById(id).orElseThrow(() -> new RuntimeException("Property form not found"));
-        propertyForm.setStatus(true);
+        propertyForm.setStatus(status);
     }
 
     @Transactional

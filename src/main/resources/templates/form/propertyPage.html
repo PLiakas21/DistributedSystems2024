@@ -29,7 +29,7 @@
                 </thead>
                 <tbody>
                 <!-- Only show rows where form.status is true -->
-                <tr th:each="form : ${propertyForms}" th:if="${form.isApproved()}">
+                <tr th:each="form : ${propertyForms}" th:if="${form.getStatus() == 1}">
                     <td th:text="${form.user.username}"></td>
                     <td th:text="${form.date}"></td>
                     <td th:text="${form.address}"></td>

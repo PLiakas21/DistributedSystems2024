@@ -44,21 +44,21 @@ public class PropertyFormController {
         return "redirect:/user/myForms";
     }
 
-    @GetMapping("approveProperty/{id}")
-    public String approvePropertyForm(@PathVariable("id") Integer id, Model model) {
-        propertyFormService.approvePropertyForm(id);
+    @GetMapping("/changePropertyFormStatus/{id}/{status}")
+    public String changePropertyFormStatus(@PathVariable("id") Integer id, Model model, @PathVariable("status") Integer status) {
+        propertyFormService.changePropertyFormStatus(id, status);
         model.addAttribute("msg", "Property approved");
         return "forward:/user/viewForms/" + propertyFormService.getPropertyForm(id).getUser().getId();
     }
 
-    @GetMapping("switchRentalStatus/{id}/{status}")
+    @GetMapping("/switchRentalStatus/{id}/{status}")
     public String switchRentalStatus(@PathVariable Integer id, @PathVariable Boolean status ,Model model) {
         propertyFormService.changeRentStatus(id, status);
         model.addAttribute("msg", "Rental Status changed");
         return "forward:/propertyForm/" + id;
     }
 
-    @GetMapping("listFormApplications/{id}")
+    @GetMapping("/listFormApplications/{id}")
     public String listFormApplications(@PathVariable Integer id, Model model) {
         PropertyForm propertyForm = propertyFormService.getPropertyForm(id);
         model.addAttribute("rentalFormList", propertyForm.getRentalFormList());

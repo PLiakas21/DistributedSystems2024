@@ -19,21 +19,6 @@ public class RentalFormController {
         this.rentalFormService = rentalFormService;
     }
 
-    @GetMapping("/list")
-    public String listRentalForms(Model model) {
-        model.addAttribute("rentalForms", rentalFormService.getRentalForms());
-        return "";
-    }
-
-    @GetMapping("/{id}")
-    public String showRentalFormDetails(@PathVariable("id") Integer id, Model model) {
-        RentalForm rentalForm = rentalFormService.getRentalForm(id);
-        model.addAttribute("rentalForm", rentalForm);
-        return "form/rentalFormDetails";
-    }
-
-
-    // Create a new Rental Form
     @GetMapping("/create/{id}")
     public String applyForRental(@PathVariable Integer id, @AuthenticationPrincipal User user, Model model) {
         rentalFormService.saveRentalForm(user, id);

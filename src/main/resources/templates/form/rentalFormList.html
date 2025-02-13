@@ -37,6 +37,7 @@
                     <td th:text="${form.user.surname}"></td>
                     <td th:text="${form.user.email}"></td>
                     <td th:text="${form.user.phone}"></td>
+                    <td th:text="${form.getStatus()}"></td>
                     <td>
                         <!-- View Details Button -->
                         <a th:href="@{'/rentalForm/' + ${form.id}}" class="btn btn-info">View Details</a>

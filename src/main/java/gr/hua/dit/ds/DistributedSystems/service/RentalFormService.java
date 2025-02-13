@@ -41,7 +41,7 @@ public class RentalFormService {
         RentalForm rentalForm = new RentalForm();
         rentalForm.setUser(user);
         rentalForm.setAddress(propertyForm.getAddress());
-        rentalForm.setStatus(false);
+        rentalForm.setStatus(0);
 
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -54,4 +54,6 @@ public class RentalFormService {
         rentalFormRepository.save(rentalForm);
         userService.addForm(user, rentalForm);
     }
+
+
 }
