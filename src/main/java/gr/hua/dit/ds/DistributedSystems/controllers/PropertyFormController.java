@@ -61,7 +61,7 @@ public class PropertyFormController {
     @GetMapping("/listFormApplications/{id}")
     public String listFormApplications(@PathVariable Integer id, Model model) {
         PropertyForm propertyForm = propertyFormService.getPropertyForm(id);
-        model.addAttribute("rentalFormList", propertyForm.getRentalFormList());
+        model.addAttribute("rentalFormList", propertyForm.getRentalFormListSorted());
         return "form/rentalFormList";
     }
 }

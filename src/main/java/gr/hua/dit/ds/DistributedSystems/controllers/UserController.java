@@ -51,13 +51,13 @@ public class UserController {
     public String deleteUser(@PathVariable Integer id, Model model) {
         userService.deleteUser(id);
         model.addAttribute("users", userService.getUsers());
-        return "redirect:user/user/list";
+        return "forward:/user/list";
     }
 
     @GetMapping("/viewForms/{id}")
     public String viewForms(@PathVariable Integer id, Model model) {
         User user = userService.getUser(id);
-        model.addAttribute("formList", user.getFormList());
+        model.addAttribute("formList", user.getFormsSortedByStatus());
         model.addAttribute("user", user);
         return "user/userForms";
     }
@@ -65,7 +65,7 @@ public class UserController {
     @GetMapping("/myForms")
     public String myForms(@AuthenticationPrincipal UserDetails  userDetails, Model model) {
         User user = (User) userService.loadUserByUsername(userDetails.getUsername());
-        model.addAttribute("formList", user.getFormList());
+        model.addAttribute("formList", user.getFormsSortedByStatus());
         model.addAttribute("user", user);
         return "user/userForms";
     }
