@@ -47,7 +47,7 @@ public class PropertyFormController {
     @GetMapping("/changePropertyFormStatus/{id}/{status}")
     public String changePropertyFormStatus(@PathVariable("id") Integer id, Model model, @PathVariable("status") Integer status) {
         propertyFormService.changePropertyFormStatus(id, status);
-        model.addAttribute("msg", "Property approved");
+        model.addAttribute("msg", "Property status changed");
         return "forward:/user/viewForms/" + propertyFormService.getPropertyForm(id).getUser().getId();
     }
 

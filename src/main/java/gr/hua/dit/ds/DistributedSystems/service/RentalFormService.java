@@ -40,6 +40,7 @@ public class RentalFormService {
 
         RentalForm rentalForm = new RentalForm();
         rentalForm.setUser(user);
+        rentalForm.setPropertyForm(propertyForm);
         rentalForm.setAddress(propertyForm.getAddress());
         rentalForm.setStatus(0);
 
@@ -55,5 +56,9 @@ public class RentalFormService {
         userService.addForm(user, rentalForm);
     }
 
-
+    @Transactional
+    public void changeRentalFormStatus(Integer id, Integer status) {
+        RentalForm rentalForm = rentalFormRepository.findById(id).orElseThrow(() -> new RuntimeException("Property form not found"));
+        rentalForm.setStatus(status);
+    }
 }
