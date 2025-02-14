@@ -8,6 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Controller
 @RequestMapping("/propertyForm")
 public class PropertyFormController {
@@ -20,8 +24,21 @@ public class PropertyFormController {
 
     // List the Property Forms
     @GetMapping("/list")
-    public String listPropertyForms(Model model) {
-        model.addAttribute("propertyForms", propertyFormService.getPropertyForms());
+    public String listPropertyForms(@RequestParam(required = false) String address,
+                                    @RequestParam(required = false) Double minRentPrice,
+                                    @RequestParam(required = false) Double maxRentPrice,
+                                    Model model) {
+
+        Set<PropertyForm> allForms = propertyFormService.getPropertyForms();
+
+        Set<PropertyForm> filteredForms = allForms.stream()
+                .filter(form -> form.getStatus() == 1)
+                .filter(form -> address == null || form.getAddress().toLowerCase().contains(address.toLowerCase()))
+                .filter(form -> minRentPrice == null || form.getRentPrice() >= minRentPrice)
+                .filter(form -> maxRentPrice == null || form.getRentPrice() <= maxRentPrice)
+                .collect(Collectors.toCollection(LinkedHashSet::new));
+
+        model.addAttribute("propertyForms", filteredForms);
         return "form/propertyPage";
     }
 
@@ -52,7 +69,7 @@ public class PropertyFormController {
     }
 
     @GetMapping("/switchRentalStatus/{id}/{status}")
-    public String switchRentalStatus(@PathVariable Integer id, @PathVariable Boolean status ,Model model) {
+    public String switchRentalStatus(@PathVariable Integer id, @PathVariable Boolean status, Model model) {
         propertyFormService.changeRentStatus(id, status);
         model.addAttribute("msg", "Rental Status changed");
         return "forward:/propertyForm/" + id;

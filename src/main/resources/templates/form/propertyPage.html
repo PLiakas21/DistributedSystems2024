@@ -11,6 +11,25 @@
 <div layout:fragment="main-content">
     <h1>Property Forms</h1>
 
+    <!-- Search Form -->
+    <form th:action="@{/propertyForm/list}" method="get" class="mb-4">
+        <div class="row">
+            <div class="col-md-3">
+                <input type="text" name="address" class="form-control" placeholder="Search by address" th:value="${param.address}">
+            </div>
+            <div class="col-md-3">
+                <input type="number" name="minRentPrice" class="form-control" placeholder="Min Rent Price" th:value="${param.minRentPrice}">
+            </div>
+            <div class="col-md-3">
+                <input type="number" name="maxRentPrice" class="form-control" placeholder="Max Rent Price" th:value="${param.maxRentPrice}">
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary">Search</button>
+                <a th:href="@{/propertyForm/list}" class="btn btn-secondary btn-clear">Clear</a>
+            </div>
+        </div>
+    </form>
+
     <div th:if="${propertyForms.isEmpty()}">
         <p>No forms found.</p>
     </div>
@@ -29,7 +48,7 @@
                 </thead>
                 <tbody>
                 <!-- Only show rows where form.status is true -->
-                <tr th:each="form : ${propertyForms}" th:if="${form.getStatus() == 1}">
+                <tr th:each="form : ${propertyForms}">
                     <td th:text="${form.user.username}"></td>
                     <td th:text="${form.date}"></td>
                     <td th:text="${form.address}"></td>

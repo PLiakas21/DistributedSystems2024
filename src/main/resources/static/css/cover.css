@@ -254,3 +254,12 @@ body {
 .user-info-content strong {
     color: #0f2b49; /* Darker blue for strong text (labels) */
 }
+
+.btn-clear {
+    color: white; /* Set text color to white */
+}
+
+.btn-clear:hover {
+    color: white; /* Ensure text remains white on hover */
+    opacity: 0.8; /* Optional: Add a hover effect */
+}
