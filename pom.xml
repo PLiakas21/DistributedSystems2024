@@ -8,11 +8,23 @@
 		<version>3.4.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	<repositories>
+		<repository>
+			<id>spring-releases</id>
+			<url>https://repo.spring.io/libs-release</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-releases</id>
+			<url>https://repo.spring.io/libs-release</url>
+		</pluginRepository>
+	</pluginRepositories>
 	<groupId>gr.hua.dit.ds</groupId>
 	<artifactId>DistributedSystems</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>DistributedSystems</name>
-	<description>Demo project for Spring Boot</description>
+	<name>Distributed Systems Property Management Application</name>
+	<description>Full stack application for Property Management Made With SpringBoot</description>
 	<url/>
 	<licenses>
 		<license/>
