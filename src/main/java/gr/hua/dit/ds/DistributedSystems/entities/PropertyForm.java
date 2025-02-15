@@ -2,8 +2,14 @@ package gr.hua.dit.ds.DistributedSystems.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class PropertyForm extends Form {
@@ -59,5 +65,12 @@ public class PropertyForm extends Form {
             }
         }
         return false;
+    }
+
+    public LinkedHashSet<RentalForm> getRentalFormListSorted(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return rentalFormList.stream()
+                .sorted(Comparator.comparing(form -> LocalDateTime.parse(form.getDate(), formatter), Comparator.reverseOrder()))
+                .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 }

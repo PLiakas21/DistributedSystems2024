@@ -7,9 +7,11 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.stream.Collectors;
 
 @Service
 public class PropertyFormService {
@@ -23,8 +25,11 @@ public class PropertyFormService {
     }
 
     @Transactional
-    public List<PropertyForm> getPropertyForms() {
-        return propertyFormRepository.findAll();
+    public LinkedHashSet<PropertyForm> getPropertyForms() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return propertyFormRepository.findAll().stream()
+                .sorted(Comparator.comparing(form -> LocalDateTime.parse(form.getDate(), formatter), Comparator.reverseOrder()))
+                .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     @Transactional
@@ -35,6 +40,7 @@ public class PropertyFormService {
     @Transactional
     public void savePropertyForm(User user, PropertyForm propertyForm) {
         propertyForm.setUser(user);
+        propertyForm.setStatus(0);
         propertyForm.setOpenForRenting(true);
 
         LocalDateTime now = LocalDateTime.now();
@@ -47,9 +53,9 @@ public class PropertyFormService {
     }
 
     @Transactional
-    public void approvePropertyForm(Integer id) {
+    public void changePropertyFormStatus(Integer id, Integer status) {
         PropertyForm propertyForm = propertyFormRepository.findById(id).orElseThrow(() -> new RuntimeException("Property form not found"));
-        propertyForm.setStatus(true);
+        propertyForm.setStatus(status);
     }
 
     @Transactional

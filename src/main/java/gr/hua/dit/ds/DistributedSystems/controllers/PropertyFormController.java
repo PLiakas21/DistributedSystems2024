@@ -8,6 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Controller
 @RequestMapping("/propertyForm")
 public class PropertyFormController {
@@ -20,8 +24,21 @@ public class PropertyFormController {
 
     // List the Property Forms
     @GetMapping("/list")
-    public String listPropertyForms(Model model) {
-        model.addAttribute("propertyForms", propertyFormService.getPropertyForms());
+    public String listPropertyForms(@RequestParam(required = false) String address,
+                                    @RequestParam(required = false) Double minRentPrice,
+                                    @RequestParam(required = false) Double maxRentPrice,
+                                    Model model) {
+
+        Set<PropertyForm> allForms = propertyFormService.getPropertyForms();
+
+        Set<PropertyForm> filteredForms = allForms.stream()
+                .filter(form -> form.getStatus() == 1)
+                .filter(form -> address == null || form.getAddress().toLowerCase().contains(address.toLowerCase()))
+                .filter(form -> minRentPrice == null || form.getRentPrice() >= minRentPrice)
+                .filter(form -> maxRentPrice == null || form.getRentPrice() <= maxRentPrice)
+                .collect(Collectors.toCollection(LinkedHashSet::new));
+
+        model.addAttribute("propertyForms", filteredForms);
         return "form/propertyPage";
     }
 
@@ -44,24 +61,24 @@ public class PropertyFormController {
         return "redirect:/user/myForms";
     }
 
-    @GetMapping("approveProperty/{id}")
-    public String approvePropertyForm(@PathVariable("id") Integer id, Model model) {
-        propertyFormService.approvePropertyForm(id);
-        model.addAttribute("msg", "Property approved");
+    @GetMapping("/changePropertyFormStatus/{id}/{status}")
+    public String changePropertyFormStatus(@PathVariable("id") Integer id, Model model, @PathVariable("status") Integer status) {
+        propertyFormService.changePropertyFormStatus(id, status);
+        model.addAttribute("msg", "Property status changed");
         return "forward:/user/viewForms/" + propertyFormService.getPropertyForm(id).getUser().getId();
     }
 
-    @GetMapping("switchRentalStatus/{id}/{status}")
-    public String switchRentalStatus(@PathVariable Integer id, @PathVariable Boolean status ,Model model) {
+    @GetMapping("/switchRentalStatus/{id}/{status}")
+    public String switchRentalStatus(@PathVariable Integer id, @PathVariable Boolean status, Model model) {
         propertyFormService.changeRentStatus(id, status);
         model.addAttribute("msg", "Rental Status changed");
         return "forward:/propertyForm/" + id;
     }
 
-    @GetMapping("listFormApplications/{id}")
+    @GetMapping("/listFormApplications/{id}")
     public String listFormApplications(@PathVariable Integer id, Model model) {
         PropertyForm propertyForm = propertyFormService.getPropertyForm(id);
-        model.addAttribute("rentalFormList", propertyForm.getRentalFormList());
+        model.addAttribute("rentalFormList", propertyForm.getRentalFormListSorted());
         return "form/rentalFormList";
     }
 }

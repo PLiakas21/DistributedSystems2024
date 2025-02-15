@@ -40,8 +40,9 @@ public class RentalFormService {
 
         RentalForm rentalForm = new RentalForm();
         rentalForm.setUser(user);
+        rentalForm.setPropertyForm(propertyForm);
         rentalForm.setAddress(propertyForm.getAddress());
-        rentalForm.setStatus(false);
+        rentalForm.setStatus(0);
 
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -53,5 +54,11 @@ public class RentalFormService {
 
         rentalFormRepository.save(rentalForm);
         userService.addForm(user, rentalForm);
+    }
+
+    @Transactional
+    public void changeRentalFormStatus(Integer id, Integer status) {
+        RentalForm rentalForm = rentalFormRepository.findById(id).orElseThrow(() -> new RuntimeException("Property form not found"));
+        rentalForm.setStatus(status);
     }
 }

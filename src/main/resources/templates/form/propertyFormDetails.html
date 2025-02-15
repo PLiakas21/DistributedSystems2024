@@ -51,14 +51,14 @@
                 </a>
 
                 <!-- Toggle Rental Status button (visible only to LANDLORD) -->
-                <a sec:authorize="hasRole('ROLE_LANDLORD') || hasRole('ROLE_ADMIN')"
+                <a sec:authorize="hasRole('ROLE_LANDLORD') || hasRole('ROLE_ADMIN')" th:if="${propertyForm.getUser().getUsername().equals(#authentication.principal.username)}"
                    th:href="@{'/propertyForm/switchRentalStatus/' + ${propertyForm.id} + '/' + ${!propertyForm.openForRenting}}"
                    class="btn btn-warning">
                     <span th:text="${propertyForm.openForRenting} ? 'Close Renting' : 'Open Renting'"></span>
                 </a>
 
                 <!-- List Rental Applications button (visible only to LANDLORD) -->
-                <a sec:authorize="hasRole('ROLE_LANDLORD') || hasRole('ROLE_ADMIN')"
+                <a sec:authorize="hasRole('ROLE_LANDLORD') || hasRole('ROLE_ADMIN')" th:if="${propertyForm.getUser().getUsername().equals(#authentication.principal.username)}"
                    th:href="@{'/propertyForm/listFormApplications/' + ${propertyForm.id}}"
                    class="btn btn-info">
                     View Rental Applications

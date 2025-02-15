@@ -19,30 +19,17 @@ public class RentalFormController {
         this.rentalFormService = rentalFormService;
     }
 
-    @GetMapping("/list")
-    public String listRentalForms(Model model) {
-        model.addAttribute("rentalForms", rentalFormService.getRentalForms());
-        return "";
-    }
-
-    @GetMapping("/{id}")
-    public String showRentalFormDetails(@PathVariable("id") Integer id, Model model) {
-        RentalForm rentalForm = rentalFormService.getRentalForm(id);
-        model.addAttribute("rentalForm", rentalForm);
-        return "form/rentalFormDetails";
-    }
-
-
-    // Create a new Rental Form
     @GetMapping("/create/{id}")
-    public String applyForRental(@PathVariable Integer id, @AuthenticationPrincipal User user, Model model) {
+    public String applyForRental(@PathVariable Integer id, @AuthenticationPrincipal User user) {
         rentalFormService.saveRentalForm(user, id);
         return "forward:/propertyForm/" + id;
     }
 
-    @GetMapping("/accept/{id}")
-    public String acceptRentalForm(@PathVariable("id") Integer id, Model model) {
+    @GetMapping("/changeRentalFormStatus/{id}/{status}")
+    public String changeRentalFormStatus(@PathVariable("id") Integer id, Model model, @PathVariable("status") Integer status) {
         RentalForm rentalForm = rentalFormService.getRentalForm(id);
-        return "" + id;
+        rentalFormService.changeRentalFormStatus(id, status);
+        model.addAttribute("msg", "Rental status changed");
+        return "forward:/propertyForm/listFormApplications/" + rentalForm.getPropertyForm().getId();
     }
 }

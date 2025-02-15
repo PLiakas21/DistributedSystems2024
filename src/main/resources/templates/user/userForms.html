@@ -40,7 +40,7 @@
                     <td th:text="${form.address}"></td>
                     <td th:text="${form.date}"></td>
                     <td>
-                        <span th:text="${form.approved} ? 'APPROVED' : 'PENDING'"></span>
+                        <span th:text="${form.status == -1} ? 'REJECTED' : (${form.status == 0} ? 'PENDING' : 'APPROVED')"></span>
                     </td>
                     <td>
                         <a th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}"
@@ -49,8 +49,13 @@
                            th:href="@{'/rentalForm/' + ${form.id}}" class="btn btn-info">Form Details</a>
 
                         <form sec:authorize="hasRole('ROLE_ADMIN')"
-                              th:action="@{'/propertyForm/approveProperty/' + ${form.id}}" style="display: inline;">
-                            <button type="submit" class="btn btn-success" th:disabled="${form.approved}">Approve</button>
+                              th:action="@{'/propertyForm/changePropertyFormStatus/' + ${form.id} + '/1'}" style="display: inline;">
+                            <button type="submit" class="btn btn-success" th:disabled="${form.status == 1}">Approve</button>
+                        </form>
+
+                        <form sec:authorize="hasRole('ROLE_ADMIN')"
+                              th:action="@{'/propertyForm/changePropertyFormStatus/' + ${form.id} + '/-1'}" style="display: inline; margin-left: 10px;">
+                            <button type="submit" class="btn btn-danger" th:disabled="${form.status == -1}">Reject</button>
                         </form>
                         <form th:action="@{'/form/delete/' + ${form.id}}"
                               style="display: inline; margin-left: 5px;">

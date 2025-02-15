@@ -10,6 +10,7 @@
 <body>
 <div layout:fragment="main-content">
     <h1>Rental Applications</h1>
+    <div th:if="${msg}" class="alert alert-success" th:text="${msg}"></div>
 
     <div th:if="${rentalFormList.isEmpty()}">
         <p>No forms found.</p>
@@ -26,6 +27,7 @@
                     <th>Surname</th>
                     <th>Email</th>
                     <th>Phone</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -38,8 +40,20 @@
                     <td th:text="${form.user.email}"></td>
                     <td th:text="${form.user.phone}"></td>
                     <td>
-                        <!-- View Details Button -->
-                        <a th:href="@{'/rentalForm/' + ${form.id}}" class="btn btn-info">View Details</a>
+                        <span th:text="${form.status == -1} ? 'REJECTED' : (${form.status == 0} ? 'PENDING' : 'APPROVED')"></span>
+                    </td>
+                    <td>
+                        <form th:action="@{'/rentalForm/changeRentalFormStatus/' + ${form.id} + '/1'}"
+                              style="display: inline;">
+                            <button type="submit" class="btn btn-success" th:disabled="${form.status == 1}">Approve
+                            </button>
+                        </form>
+
+                        <form th:action="@{'/rentalForm/changeRentalFormStatus/' + ${form.id} + '/-1'}"
+                              style="display: inline; margin-left: 10px;">
+                            <button type="submit" class="btn btn-danger" th:disabled="${form.status == -1}">Reject
+                            </button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>

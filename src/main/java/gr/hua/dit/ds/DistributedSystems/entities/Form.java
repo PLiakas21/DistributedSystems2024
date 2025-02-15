@@ -24,13 +24,13 @@ public class Form {
     protected String address;
 
     @Column(nullable = false)
-    protected boolean status;
+    protected Integer status;
 
     public Form(User user, String date, String address) {
         this.user = user;
         this.date = date;
         this.address = address;
-        this.status = false;
+        this.status = 0;
     }
 
     public Form() {}
@@ -67,11 +67,11 @@ public class Form {
         this.address = address;
     }
 
-    public boolean isApproved() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 }

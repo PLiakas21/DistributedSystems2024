@@ -9,9 +9,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -72,7 +72,7 @@ public class User implements UserDetails {
         this.password = password;
         this.email = email;
         this.phone = phone;
-        this.formList = new HashSet<>();
+        this.formList = new LinkedHashSet<>();
         this.roles = new HashSet<>();
     }
 
@@ -191,5 +191,11 @@ public class User implements UserDetails {
         this.phone = user.getPhone();
         this.formList = user.getFormList();
         this.roles = user.getRoles();
+    }
+
+    public Set<Form> getFormsSortedByStatus() {
+        return formList.stream()
+                .sorted(Comparator.comparingInt(Form::getStatus).reversed())
+                .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 }
