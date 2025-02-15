@@ -20,7 +20,7 @@ public class PropertyForm extends Form {
     @Column(nullable = false)
     private boolean openForRenting;
 
-    @OneToMany(cascade= {CascadeType.ALL})
+    @OneToMany(cascade= {CascadeType.ALL}, orphanRemoval = true)
     private Set<RentalForm> rentalFormList;
 
     public PropertyForm(User user, String date, String address, double rentPrice, boolean openForRenting) {
