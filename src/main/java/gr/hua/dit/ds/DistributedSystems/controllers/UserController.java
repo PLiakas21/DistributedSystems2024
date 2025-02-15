@@ -1,9 +1,7 @@
 package gr.hua.dit.ds.DistributedSystems.controllers;
 
-import gr.hua.dit.ds.DistributedSystems.entities.Role;
 import gr.hua.dit.ds.DistributedSystems.entities.User;
 import gr.hua.dit.ds.DistributedSystems.service.UserService;
-import jakarta.annotation.PostConstruct;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -15,12 +13,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     
     private final UserService userService;
-
-//    @PostConstruct
-//    public void setup(){
-//        User user = userService.loadUserByUsername("admin");
-//        userService.addRole(user.getId(), "ROLE_ADMIN");
-//    }
 
     public UserController(UserService userService) {
         this.userService = userService;

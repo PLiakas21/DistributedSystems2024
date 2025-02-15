@@ -1,9 +1,7 @@
 package gr.hua.dit.ds.DistributedSystems.controllers;
-import gr.hua.dit.ds.DistributedSystems.entities.Role;
 import gr.hua.dit.ds.DistributedSystems.entities.User;
 import gr.hua.dit.ds.DistributedSystems.repositories.RoleRepository;
 import gr.hua.dit.ds.DistributedSystems.service.UserService;
-import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 
 @Controller
 public class AuthController {
@@ -28,19 +25,6 @@ public class AuthController {
         this.roleRepository = roleRepository;
         this.userService = userService;
     }
-
-//    @PostConstruct
-//    public void setup() {
-//        Role role_admin = new Role("ROLE_ADMIN");
-//        Role role_user = new Role("ROLE_USER");
-//        Role role_landlord = new Role("ROLE_LANDLORD");
-//        Role role_tenant = new Role("ROLE_TENANT");
-//
-//        roleRepository.updateOrInsert(role_admin);
-//        roleRepository.updateOrInsert(role_user);
-//        roleRepository.updateOrInsert(role_landlord);
-//        roleRepository.updateOrInsert(role_tenant);
-//    }
 
     @GetMapping("/login")
     public String login() {
