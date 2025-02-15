@@ -71,7 +71,7 @@ public class AuthController {
         }
 
         userService.saveUser(user);
-        return "home";
+        return "redirect:/login";
     }
 
     public void refreshAuthentication(User user) {
