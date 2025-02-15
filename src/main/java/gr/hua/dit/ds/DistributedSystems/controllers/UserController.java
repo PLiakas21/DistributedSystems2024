@@ -32,7 +32,7 @@ public class UserController {
         userService.addRole(id, role);
         String message = "Role added successfully";
         model.addAttribute("msg", message);
-        return "user/user";
+        return "redirect:/";
     }
 
     @GetMapping("/list")

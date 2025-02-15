@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
       layout:decorate="~{page_layout/layout}">
 
 <head>
@@ -8,8 +10,21 @@
     <title>Home</title>
 </head>
 <body>
-<div layout:fragment="main-content">
-    <h1>I hate frontend</h1>
+<div layout:fragment="main-content" class="container text-center mt-5">
+    <h1>Welcome to Property Rental Management System</h1>
+    <div sec:authorize="isAuthenticated() and !hasAnyRole('ROLE_LANDLORD','ROLE_TENANT','ROLE_ADMIN')">
+        <h2>Select your role:</h2>
+        <form th:action="@{/selectRole}" method="post" class="mt-4">
+            <div class="btn-group" role="group">
+                <input type="radio" class="btn-check" id="landlord" name="role" value="ROLE_LANDLORD" required>
+                <label class="btn btn-primary btn-lg active" for="landlord">Landlord</label>
+                <input type="radio" class="btn-check" id="tenant" name="role" value="ROLE_TENANT" required>
+                <label class="btn btn-secondary btn-lg active ml-2" for="tenant">Tenant</label>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>

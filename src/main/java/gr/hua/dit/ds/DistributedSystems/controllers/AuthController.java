@@ -5,11 +5,14 @@ import gr.hua.dit.ds.DistributedSystems.repositories.RoleRepository;
 import gr.hua.dit.ds.DistributedSystems.service.UserService;
 import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AuthController {
@@ -65,6 +68,26 @@ public class AuthController {
         }
 
         userService.saveUser(user);
+        return "home";
+    }
+    @PostMapping("/selectRole")
+    public String selectRole (@RequestParam("role") String role, Authentication authentication){
+        if (authentication != null) {
+            String username = authentication.getName();
+            UserDetails userDetails = userService.loadUserByUsername(username);
+            User currentUser = (User) userDetails;
+            return "redirect:/user/addRole/" + currentUser.getId() + '/' + role;
+        }
+        return "redirect:/";
+    }
+    @GetMapping("/auth/home")
+    public String authHome(Model model, Authentication authentication) {
+        if (authentication != null) {
+            String username = authentication.getName();
+            UserDetails userDetails = userService.loadUserByUsername(username);
+            User currentUser = (User) userDetails;
+            model.addAttribute("currentUserId", currentUser.getId());
+        }
         return "home";
     }
 }
