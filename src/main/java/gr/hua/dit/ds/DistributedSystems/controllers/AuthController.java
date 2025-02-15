@@ -13,6 +13,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 
 @Controller
 public class AuthController {
@@ -70,24 +73,29 @@ public class AuthController {
         userService.saveUser(user);
         return "home";
     }
+
+    public void refreshAuthentication(User user) {
+
+        UsernamePasswordAuthenticationToken newAuthentication = new UsernamePasswordAuthenticationToken(
+                user,
+                user.getPassword(),
+                user.getAuthorities()
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+    }
+
     @PostMapping("/selectRole")
-    public String selectRole (@RequestParam("role") String role, Authentication authentication){
+    public String selectRole(@RequestParam("role") String role, Authentication authentication) {
         if (authentication != null) {
             String username = authentication.getName();
             UserDetails userDetails = userService.loadUserByUsername(username);
             User currentUser = (User) userDetails;
-            return "redirect:/user/addRole/" + currentUser.getId() + '/' + role;
+
+            userService.addRole(currentUser.getId(), role);
+
+            refreshAuthentication(currentUser);
         }
         return "redirect:/";
-    }
-    @GetMapping("/auth/home")
-    public String authHome(Model model, Authentication authentication) {
-        if (authentication != null) {
-            String username = authentication.getName();
-            UserDetails userDetails = userService.loadUserByUsername(username);
-            User currentUser = (User) userDetails;
-            model.addAttribute("currentUserId", currentUser.getId());
-        }
-        return "home";
     }
 }

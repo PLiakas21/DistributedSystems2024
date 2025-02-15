@@ -26,15 +26,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/addRole/{id}/{role}")
-    public String addRole(@PathVariable Integer id, @PathVariable String role, Model model) {
-        model.addAttribute("users", userService.getUsers());
-        userService.addRole(id, role);
-        String message = "Role added successfully";
-        model.addAttribute("msg", message);
-        return "redirect:/";
-    }
-
     @GetMapping("/list")
     public String listUsers(Model model) {
         model.addAttribute("users", userService.getUsers());

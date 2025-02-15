@@ -250,3 +250,9 @@ body {
     color: white; /* Ensure text remains white on hover */
     opacity: 0.8; /* Optional: Add a hover effect */
 }
+/* Style for the buttons when the radio button is checked */
+.btn-check:checked + .btn-warning {
+    border: 2px solid #000; /* Add a black outline */
+    background-color: transparent; /* Make the background transparent */
+    color: #000; /* Change text color to black */
+}

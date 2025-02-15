@@ -13,17 +13,27 @@
 <div layout:fragment="main-content" class="container text-center mt-5">
     <h1>Welcome to Property Rental Management System</h1>
     <div sec:authorize="isAuthenticated() and !hasAnyRole('ROLE_LANDLORD','ROLE_TENANT','ROLE_ADMIN')">
-        <h2>Select your role:</h2>
-        <form th:action="@{/selectRole}" method="post" class="mt-4">
-            <div class="btn-group" role="group">
-                <input type="radio" class="btn-check" id="landlord" name="role" value="ROLE_LANDLORD" required>
-                <label class="btn btn-primary btn-lg active" for="landlord">Landlord</label>
-                <input type="radio" class="btn-check" id="tenant" name="role" value="ROLE_TENANT" required>
-                <label class="btn btn-secondary btn-lg active ml-2" for="tenant">Tenant</label>
+        <div class="card mx-auto mt-4" style="max-width: 500px;">
+            <div class="card-header">
+                <h2 class="card-title mb-0">Select Your Role</h2>
             </div>
-            <br>
-            <button type="submit" class="btn btn-success">Submit</button>
-        </form>
+            <div class="card-body">
+                <form th:action="@{/selectRole}" method="post">
+                    <div class="btn-group d-flex justify-content-between" role="group">
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="btn-check" id="landlord" name="role" value="ROLE_LANDLORD" required hidden>
+                            <label class="btn btn-warning btn-lg" for="landlord">Landlord</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="btn-check" id="tenant" name="role" value="ROLE_TENANT" required hidden>
+                            <label class="btn btn-warning btn-lg" for="tenant">Tenant</label>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-success btn-lg w-100 mt-3">Submit</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 </body>
