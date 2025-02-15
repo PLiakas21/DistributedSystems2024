@@ -2,6 +2,7 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
       layout:decorate="~{page_layout/layout}">
 
 <head>
@@ -11,10 +12,9 @@
 <body>
 <div layout:fragment="main-content" class="container text-center mt-5">
     <h1>Welcome to Property Rental Management System</h1>
-    <div th:if="${showRoleSelection}">
+    <div sec:authorize="isAuthenticated() and !hasAnyRole('ROLE_LANDLORD','ROLE_TENANT','ROLE_ADMIN')">
         <h2>Select your role:</h2>
         <form th:action="@{/selectRole}" method="post" class="mt-4">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             <div class="btn-group" role="group">
                 <input type="radio" class="btn-check" id="landlord" name="role" value="ROLE_LANDLORD" required>
                 <label class="btn btn-primary btn-lg active" for="landlord">Landlord</label>
